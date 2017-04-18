@@ -1,6 +1,6 @@
 
 var MapMaker = function() {
-    var map;
+    var _map;
 
 
     return {
@@ -14,7 +14,7 @@ var MapMaker = function() {
                 source: new ol.source.OSM()
             });
 
-            map = new ol.Map({
+            _map = new ol.Map({
                 target: 'map',  // The DOM element that will contains the map
                 renderer: 'canvas', // Force the renderer to be used
                 layers: [ baseLayer, markerLayer ],
@@ -25,11 +25,13 @@ var MapMaker = function() {
             });
         },
 
-
+        getMap: function(){ 
+            return _map;
+        },
         jumpTo: function(lon, lat, zoom) {
-            view = mymap.getView();
+            view = _map.getView();
             view.setCenter(ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:3857'));
-            mymap.addMarker("Galway",lon,lat);
+            map.addMarker("Galway",lon,lat);
             return false;
         },
 
@@ -55,17 +57,17 @@ var MapMaker = function() {
                 feature.setId(id);
             }
 
-            map.getLayers().item(1).getSource().addFeature(feature);
+            _map.getLayers().item(1).getSource().addFeature(feature);
         },
         getView: function(){
-            return map.getView();
+            return _map.getView();
         }
     }
 
 };
 
-mymap = MapMaker();
-mymap.createOSMap(-9.043876, 53.267111, 16);
+map = MapMaker();
+map.createOSMap(-9.043876, 53.267111, 16);
 
 
 

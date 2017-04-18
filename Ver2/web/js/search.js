@@ -5,13 +5,13 @@ $(function() {
         if(isLatLong(data)){
             latlong=parseLongLatFromLatLong(data);
             console.debug(latlong)
-            mymap.jumpTo( latlong[0], latlong[1], 4);
+            map.jumpTo( latlong[0], latlong[1], 4);
         }else{
             latlong=parseLongLatFromLatLong("53.362792,-6.050456");
             console.log("Fixed " +latlong)
-            mymap.jumpTo( latlong[0], latlong[1], 4);
+             map.jumpTo( latlong[0], latlong[1], 4);
         }
-        weatherFetcher.fetchWeather(latlong[0],latlong[1]);
+        weather.fetchWeather(latlong[0],latlong[1]);
     });
 });
 
