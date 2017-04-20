@@ -15,17 +15,16 @@ $(function() {
             console.debug("fixed")
             loc.set();
             loc.zoom(4);
-
         }
         weather.fetchWeather();
     });
 });
 
 
-map.getMap().on('click', function(evt) {
+/*map.getMap().on('click', function(evt) {
     var click_coordinates = evt.coordinate;
     console.log(click_coordinates);
-});
+});*/
 
 
 function dateChanged(dateText) {
@@ -42,6 +41,11 @@ function sliderChanged(event,ui){
     weather.fetchWeather();
 
 }
+
+
+map = MapMaker();
+map.createOSMap(-9.043876, 53.267111, 16);
+
 
 
 

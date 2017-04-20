@@ -61,13 +61,14 @@ var MapMaker = function() {
         },
         getView: function(){
             return _map.getView();
+        },
+        setZoom: function(zoom){
+            _map.getView().setZoom(zoom);
         }
     }
 
 };
 
-map = MapMaker();
-map.createOSMap(-9.043876, 53.267111, 16);
 
 
 

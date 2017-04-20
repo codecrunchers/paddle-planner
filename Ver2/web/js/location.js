@@ -20,8 +20,8 @@ var Loc = function(){
             console.log("Set Lat=%s, Lon=%s",_lat,_lon);
             map.jumpTo(_lon, _lat);
         },
-        zoom: function() {
-            console.log("todo zoom");
+        zoom: function(zoom) {
+            map.setZoom(zoom);
         }
     };
 };
