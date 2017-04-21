@@ -1,3 +1,21 @@
+/* Wind */
+.wd-n {
+}
+
+
+
+/*
+ *
+ * attempt to maintain
+ */
+.overlay {
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid black;
+    padding: 2px 4px;
+    width: 220px;
+}
+
 .map {
   height: 400px;
   width: 100%;

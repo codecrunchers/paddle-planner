@@ -1,7 +1,7 @@
 var Loc = function(){
 
-    _lon= -9.043876;
-    _lat = 53.267111;
+    _lat= -9.043876;
+    _lon = 53.267111;
 
     return  {
         getLat: function(){

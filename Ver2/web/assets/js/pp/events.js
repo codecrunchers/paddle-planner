@@ -3,48 +3,67 @@ $(function() {
         var data = $("#input-push-out-loc").val();
         var latLong;
         if(isLatLong(data)){
-            latLong=parseLongLatFromLatLong(data);
-            loc.setLat(latlong.lat);
-            loc.setLon(latlong.lon);
+            latLong=parseCoords(data);
+            loc.setLat(latLong.lat);
+            loc.setLon(latLong.lon);
             console.debug(latLong)
-            loc.set();
-            loc.zoom(4);
         }else{
-            loc.setLon(-6.050456);
-            loc.setLat(53.362792);
+            loc.setLat(-6.050456);
+            loc.setLon(53.362792);
             console.debug("fixed")
-            loc.set();
-            loc.zoom(4);
         }
+        loc.set();
+        loc.zoom(4);
+
         weather.fetchWeather();
     });
 });
 
 
 /*map.getMap().on('click', function(evt) {
-    var click_coordinates = evt.coordinate;
-    console.log(click_coordinates);
-});*/
+  var click_coordinates = evt.coordinate;
+  console.log(click_coordinates);
+  });*/
 
 
 function dateChanged(dateText) {
     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
     slider.reset();
     datePicker.setDate(dateText)
-    weather.fetchWeather();
+        weather.fetchWeather();
 
 }
 
 function sliderChanged(event,ui){
     console.log("Selected hour: " + ui.value)
-    datePicker.setHour(ui.value);
+        datePicker.setHour(ui.value);
     weather.fetchWeather();
 
 }
 
+/**
+ * This is called to activate relevant layers on openlayer
+ */
+function layoutNow(data){
+    console.debug("Weather:", data);
+    windUi.activate(data.wind);
+    map.overlayWind();
+}
 
+
+function layoutFcast(data){
+    console.debug("Weather",data)
+        $weather.html("<h2>" + data.city.name + "</h2>" + 
+                "<li>Weather:" + data.list[0].weather[0].description + "</li>" + 
+                "<li>Wind Speed :" + data.list[0].wind.speed + "</li>" + 
+                "<li>Wind Dir :" + data.list[0].wind.deg + "</li>")
+
+}
+
+
+//TODO: Refactor
 map = MapMaker();
-map.createOSMap(-9.043876, 53.267111, 16);
+map.createOSMap(53.267111,-9.043876, 16);
 
 
 

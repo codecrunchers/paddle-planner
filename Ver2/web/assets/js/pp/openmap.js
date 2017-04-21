@@ -19,26 +19,26 @@ var MapMaker = function() {
                 renderer: 'canvas', // Force the renderer to be used
                 layers: [ baseLayer, markerLayer ],
                 view: new ol.View({
-                    center:  ol.proj.transform([lon, lat ], 'EPSG:4326', 'EPSG:3857'),
+                    center:  ol.proj.transform([lat , lon], 'EPSG:4326', 'EPSG:3857'),
                     zoom: zoom
                 })
             });
         },
 
-        getMap: function(){ 
+        getMap: function(){
             return _map;
         },
         jumpTo: function(lon, lat, zoom) {
             view = _map.getView();
-            view.setCenter(ol.proj.transform([lon,lat], 'EPSG:4326', 'EPSG:3857'));
-            map.addMarker("Galway",lon,lat);
+            view.setCenter(ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857'));
+            map.addMarker("PaddlingArea",lon,lat);
             return false;
         },
 
         addMarker: function(id, lon, lat)  
         {
             //create a point
-            var geom = new ol.geom.Point( ol.proj.transform([lon, lat], 'EPSG:4326', 'EPSG:3857') );
+            var geom = new ol.geom.Point( ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857') );
             var feature = new ol.Feature(geom);
             feature.setStyle([
                     new ol.style.Style({
@@ -63,7 +63,14 @@ var MapMaker = function() {
             return _map.getView();
         },
         setZoom: function(zoom){
-            _map.getView().setZoom(zoom);
+            _map.getView().setZoom(parseInt(zoom));
+        },
+        overlayWind: function(){
+            var overlay = new ol.Overlay({
+                element: document.getElementById('weather-data'),
+                position: '[50,50]'
+            });
+            _map.addOverlay(overlay);
         }
     }
 
