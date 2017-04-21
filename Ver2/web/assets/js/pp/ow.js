@@ -7,29 +7,31 @@ var weatherFcast="http://api.openweathermap.org/data/2.5/forecast?q=_PH_&appid=b
 
 var _cache = new Map();
 var paddleTime = { day:"21/04/2017", hour:23 }
-
+$weather = $('#Weather-data');
 var Ow = function(){
 	return {
 		getByCoords: function(lon=0,lat=0,time){
-			var updatedUrl = weatherFcast.replace('_PH_',"lon="+lon+"&lat="+lat);
+			var updatedUrl = weatherNow.replace('_PH_',"lon="+lon+"&lat="+lat);
+            var layoutFunc = layoutNow;
 			_key=btoa(updatedUrl);
 			if(isCached(_key)!=null){
-				console.log("from cache");			
-				layoutFcast(isCached(_key));
+				console.log("from cache");
+				layoutFunc(isCached(_key));
 			}else{
-				console.log("from service");	
-				retrieveForecast(updatedUrl,layoutFcast)
+				console.log("from service");
+				retrieveForecast(updatedUrl,layoutFunc)
 			}
 		},
 
 		getByLocation: function(dest="", time={}){
+            console.log("TODO getByLocation");
 			return dest;
-		}		
+		}
 	}
 
 	function layoutNow(data){		
 		console.debug("Weather",data)
-		$('#wdata').html("<h2>" + data.name + "</h2>" + 
+		$weather.html("<h2>" + data.name + "</h2>" + 
 				"<li>Weather:" + data.weather[0].description + "</li>" + 
 				"<li>Wind Speed :" + data.wind.speed + "</li>" + 
 				"<li>Wind Dir :" + data.wind.deg + "</li>")
@@ -37,7 +39,7 @@ var Ow = function(){
 
 	function layoutFcast(data){		
 		console.debug("Weather",data)
-		$('#wdata').html("<h2>" + data.city.name + "</h2>" + 
+		$weather.html("<h2>" + data.city.name + "</h2>" + 
 				"<li>Weather:" + data.list[0].weather[0].description + "</li>" + 
 				"<li>Wind Speed :" + data.list[0].wind.speed + "</li>" + 
 				"<li>Wind Dir :" + data.list[0].wind.deg + "</li>")
