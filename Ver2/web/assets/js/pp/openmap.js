@@ -1,8 +1,6 @@
 
 var MapMaker = function() {
     var _map;
-
-
     return {
         createOSMap: function (lon, lat, zoom)
         {
@@ -66,12 +64,20 @@ var MapMaker = function() {
             _map.getView().setZoom(parseInt(zoom));
         },
         overlayWind: function(){
-            var overlay = new ol.Overlay({
-                element: document.getElementById('weather-data'),
-                position: [50,50]
+            overlay = new ol.Overlay({
+                element: document.getElementById('compass'),
+                position: ol.proj.fromLonLat([loc.getLat(), loc.getLon()])
+            });
+            _map.addOverlay(overlay);
+        },
+        overlaySun: function(){
+            overlay = new ol.Overlay({
+                element: document.getElementById('sun-wrapper'),
+                position: ol.proj.fromLonLat([loc.getLat(), loc.getLon()])
             });
             _map.addOverlay(overlay);
         }
+
     }
 
 };
