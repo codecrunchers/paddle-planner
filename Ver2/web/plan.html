@@ -1,0 +1,87 @@
+<!DOCTYPE HTML>
+<!--
+  Fractal by HTML5 UP
+  html5up.net | @n33co
+  Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Paddle Planner</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css">
+
+    <!--[if lte IE 8]><script src="assets/js/ie/html5shiv.js"></script><![endif]-->
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link href="assets/css/pp/pp.css" rel="stylesheet">
+
+    <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
+    <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+  </head>
+  <body>
+    <div class="container">
+
+      <div class="location-bar" style="width:800px; margin-right:30px">
+        <input type="text" class="form-control input-lg" id="input-push-out-loc" placeholder="Pushing out location, 53.267111, -9.043876"/>
+          <button type="button" id="button-push-out-loc" style="margin:10px">
+            <i class="fa fa-search-plus" aria-hidden="true"></i>
+          </button>
+      </div>
+      <!-- Map -->
+      <div class="row">
+        <div class="map" id="openmap"/>
+        </div>
+      </div>
+      <!-- TimeLine -->
+      <div class="row">
+          <div id="slider" class="slider"></div>
+          <div class="datepicker">
+            <input type="text" id="datepicker" value="Choose day"/>
+          </div>
+          <div id="provider" class="provider"></div>
+      </div>
+      <!-- Date -->
+      <div class="row">
+          <div class="weather" id="weather"/>
+          </div>
+          <div class="col" id="weather-data"></div>
+          <div class="col" id="weather-help"></div>
+          <div class="col" id="weather-unused"></div>
+      </div>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+    <script src="https://openlayers.org/en/v4.1.0/build/ol.js" type="text/javascript"></script>
+
+    <!-- Scripts -->
+    <script src="assets/js/pp/moment.min.js"></script>
+
+    <!-- Functions -->
+    <script src="assets/js/pp/search.js"></script>
+    <script src="assets/js/pp/ow.js"></script>
+    <script src="assets/js/pp/openweather.js"></script>
+    <script src="assets/js/pp/weather.js"></script>
+    <script src="assets/js/pp/weatherprovider.js"></script>
+    <script src="assets/js/pp/openmap.js"></script>
+    <script src="assets/js/pp/slider.js"></script>
+    <script src="assets/js/pp/datepicker.js"></script>
+    <script src="assets/js/pp/events.js"></script>
+    <script src="assets/js/pp/location.js"></script>
+    <script src="assets/js/pp/tides.js"></script>
+
+
+    <!-- ui -->
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/skel.min.js"></script>
+    <script src="assets/js/util.js"></script>
+
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <script src="assets/js/main.js"></script>
+
+  </body>
+</html>
