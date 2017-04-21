@@ -68,7 +68,7 @@ var MapMaker = function() {
         overlayWind: function(){
             var overlay = new ol.Overlay({
                 element: document.getElementById('weather-data'),
-                position: '[50,50]'
+                position: [50,50]
             });
             _map.addOverlay(overlay);
         }

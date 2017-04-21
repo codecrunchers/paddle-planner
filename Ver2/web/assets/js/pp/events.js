@@ -52,7 +52,7 @@ function layoutNow(data){
 
 
 function layoutFcast(data){
-    console.debug("Weather",data)
+    console.debug("TODO: Weather",data)
         $weather.html("<h2>" + data.city.name + "</h2>" + 
                 "<li>Weather:" + data.list[0].weather[0].description + "</li>" + 
                 "<li>Wind Speed :" + data.list[0].wind.speed + "</li>" + 
@@ -64,6 +64,7 @@ function layoutFcast(data){
 //TODO: Refactor
 map = MapMaker();
 map.createOSMap(53.267111,-9.043876, 16);
+var layoutFunc = layoutNow;
 
 
 

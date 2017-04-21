@@ -9,9 +9,10 @@ var WindUI = function(){
             // Clone the <template> in the import.
             var template = link.import.querySelector('#wind');
             var clone = document.importNode(template.content, true);
-            document.querySelector('.container').appendChild(clone);
-            $(".wind-speed-val").text(wind.speed);
-             $(".wind-speed-val").addClass("wd-n");
+//          document.querySelector('.container').appendChild(clone);
+            $(clone).prependTo('body');
+            //$(".wind-speed-val").text(wind.speed);
+            //$(".wind-speed-val").addClass("wd-n");
 
         }
     }

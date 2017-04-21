@@ -12,7 +12,6 @@ var Ow = function(){
 	return {
 		getByCoords: function(lon,lat,time){
 			var updatedUrl = weatherNow.replace('_PH_',"lon="+lon+"&lat="+lat);
-            var layoutFunc = layoutNow;
 			_key=btoa(updatedUrl);
 
 			if(isCached(_key)!=null){
