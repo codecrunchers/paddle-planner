@@ -11,7 +11,8 @@ var WindUI = function(){
             var clone = document.importNode(template.content, true);
             $(clone).prependTo('.container');
             wDir = calcWind(data.wind.deg);
-            $(".wind-speed-val").prepend(data.wind.speed);
+            $(".speedk").prepend(data.wind.speed + " ");
+            $(".wind-speed-val").prepend(wDir.toUpperCase() + " ");
             $("#arrow").addClass(calcWind(data.wind.deg));
         }
     }

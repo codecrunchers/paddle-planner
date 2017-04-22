@@ -2,16 +2,18 @@
 var SunUI= function(){
 
     return {
-        activate: function(sun){
-            console.debug("Sun",sun);
+        activate: function(weather){
+            console.debug("Sun",weather);
             removePrevious();
             var link = document.querySelector('link[rel="import"]');
-
+            weatherTemplate = calcSun(weather);
             // Clone the <template> in the import.
-            var template = link.import.querySelector('#sun-template');
+            tplName = "#" + weatherTemplate + "-template";
+            console.log("fetching tpl %s",tplName);
+            var template = link.import.querySelector(tplName);
             var clone = document.importNode(template.content, true);
             $(clone).prependTo('.container');
-            $("#sun").addClass(calcSun(sun));
+            $("#sun").addClass();
         }
     }
 
@@ -20,8 +22,19 @@ var SunUI= function(){
         $("weather-wrapper").remove();
     }
 
-    function calcSun(degree){
-        return "sun";
+    /**
+     * sunny-> 904
+     * clouds -> 8
+     */
+    function calcSun(weather){
+        console.debug(weather);
+        code = parseInt(weather.weather[0].id / 100);
+        console.log("Weather Code %s",code);
+        switch(code){
+            case 8:
+                return "cloudy";
+            default:
+        }        return "sun";
     }
 }
 

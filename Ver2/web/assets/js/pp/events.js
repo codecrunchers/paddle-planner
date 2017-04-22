@@ -7,23 +7,23 @@ $(function() {
             loc.setLat(latLong.lat);
             loc.setLon(latLong.lon);
             console.debug(latLong)
-        }else{
-            loc.setLat(-6.050456);
-            loc.setLon(53.362792);
-            console.debug("fixed")
+                map.setZoom(6);
+            weather.fetchWeather();
+            updateInfo(latLong);
         }
-        loc.set();
-        map.setZoom(2);
-        weather.fetchWeather();
     });
+
 });
 
 
-/*map.getMap().on('click', function(evt) {
-  var click_coordinates = evt.coordinate;
-  console.log(click_coordinates);
-  });*/
+function updateInfo(latLong){
+    var coord = [loc.getLon(),loc.getLat()];
+    var template = 'Coordinate is ({x}|{y}).';
+    out = ol.coordinate.format(coord, template, 2);
+    console.debug("Tpl:",out);
+    $(".curdatetimeloc").text(out);
 
+}
 
 function dateChanged(dateText) {
     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
@@ -45,11 +45,9 @@ function sliderChanged(event,ui){
  */
 function layoutNow(data){
     console.debug("Weather:", data);
-
     uiOverlays.activate(data);
     map.overlayWind();
     map.overlaySun();
-
 }
 
 

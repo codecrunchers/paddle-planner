@@ -28,9 +28,14 @@
         </button>
         <p>
         <b>Sample</b>
-        <a id="sampleGalway">Galway</a>
+        <a id="sampleGalway">Dublin</a>
         <a id="sampleNorway">Norway</a>
         </p>
+      </div>
+
+      <div class="info">
+        <span class="spinner">Working..</span>
+        <span class="curdatetimeloc">Viewing x at y</span>
       </div>
 
       <!-- Map -->
@@ -88,6 +93,7 @@
 
     <script>
 $("#sampleGalway").click( function() {
+  $("#input-push-out-loc").val("53.362792,-6.050456");
   $("#button-push-out-loc").click();
 } );
 
