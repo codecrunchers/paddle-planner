@@ -26,6 +26,11 @@
         <button type="button" id="button-push-out-loc" style="margin:10px">
           <i class="fa fa-search-plus" aria-hidden="true"></i>
         </button>
+        <p>
+        <b>Sample</b>
+        <a id="sampleGalway">Galway</a>
+        <a id="sampleNorway">Norway</a>
+        </p>
       </div>
 
       <!-- Map -->
@@ -78,13 +83,21 @@
     <script src="assets/js/pp/ui/overlays.js"></script>
 
     <script src="assets/js/pp/events.js"></script>
-
-
-
-
-
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>
+
+    <script>
+$("#sampleGalway").click( function() {
+  $("#button-push-out-loc").click();
+} );
+
+$("#sampleNorway").click( function() {
+  $("#input-push-out-loc").val("68.268334,14.892628");
+  $("#button-push-out-loc").click();
+} );
+
+
+    </script>
 
   </body>
 </html>

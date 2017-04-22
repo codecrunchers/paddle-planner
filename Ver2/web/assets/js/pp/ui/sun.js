@@ -4,6 +4,7 @@ var SunUI= function(){
     return {
         activate: function(sun){
             console.debug("Sun",sun);
+            removePrevious();
             var link = document.querySelector('link[rel="import"]');
 
             // Clone the <template> in the import.
@@ -12,6 +13,11 @@ var SunUI= function(){
             $(clone).prependTo('.container');
             $("#sun").addClass(calcSun(sun));
         }
+    }
+
+
+    function removePrevious(){
+        $("weather-wrapper").remove();
     }
 
     function calcSun(degree){

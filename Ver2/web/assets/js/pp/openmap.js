@@ -1,6 +1,9 @@
 
 var MapMaker = function() {
     var _map;
+    var overlayWindOL;
+    var overlaySunOL;
+
     return {
         createOSMap: function (lon, lat, zoom)
         {
@@ -66,21 +69,29 @@ var MapMaker = function() {
         overlayWind: function(){
             __loc = [loc.getLat(), loc.getLon()]
                 console.debug("Loc Wind",__loc);
-            overlay = new ol.Overlay({
+            removeOverlay(overlayWindOL);
+            overlayWindOL = new ol.Overlay({
                 element: document.getElementById('compass'),
                 position: ol.proj.fromLonLat(__loc)
             });
-            _map.addOverlay(overlay);
+            _map.addOverlay(overlayWindOL);
         },
         overlaySun: function(){
             __loc = [loc.getLat(), loc.getLon()];
             console.debug("Loc Sun",__loc);
-            overlaySun = new ol.Overlay({
+            removeOverlay(overlaySunOL);
+            overlaySunOL = new ol.Overlay({
                 element: document.getElementById('weather-wrapper'),
                 position: ol.proj.fromLonLat(__loc)
             });
-            _map.addOverlay(overlaySun);
+            _map.addOverlay(overlaySunOL);
         }
+
+    }
+
+    function removeOverlay(overlay){
+        result = _map.removeOverlay(overlay);
+        if(null == result) console.log("No OL Removed from %o",_map);
 
     }
 

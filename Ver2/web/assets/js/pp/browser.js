@@ -1,9 +1,9 @@
 function supportsImports() {
-  return 'import' in document.createElement('link');
+    return 'import' in document.createElement('link');
 }
 
 if (supportsImports()) {
-console.log("Pass");  
+    console.log("Pass");  
 } else {
-console.log("Fail");
+    console.log("Fail");
 }
