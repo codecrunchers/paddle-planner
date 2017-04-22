@@ -2,16 +2,16 @@
 var WindUI = function(){
 
     return {
-        activate: function(wind){ 
-            console.debug("Wind",wind);
+        activate: function(data){ 
+            console.debug("Wind",data.wind);
             var link = document.querySelector('link[rel="import"]');
 
             // Clone the <template> in the import.
             var template = link.import.querySelector('#wind-template');
             var clone = document.importNode(template.content, true);
             $(clone).prependTo('.container');
-            $(".wind-speed-val").prepend(wind.speed);
-            $("#arrow").addClass(calcWind(wind.deg));
+            $(".wind-speed-val").prepend(data.wind.speed);
+            $("#arrow").addClass(calcWind(data.wind.deg));
         }
     }
 
