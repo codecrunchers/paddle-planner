@@ -6,20 +6,24 @@ $(function() {
             latLong=parseCoords(data);
             loc.setLat(latLong.lat);
             loc.setLon(latLong.lon);
-            console.debug(latLong)
-                map.setZoom(6);
+            console.debug(latLong);
+            map.setZoom(6);
             weather.fetchWeather();
-            updateInfo(latLong);
+            updateInfo();
         }
     });
 
 });
 
 
-function updateInfo(latLong){
+function updateInfo(){
     var coord = [loc.getLon(),loc.getLat()];
     var template = 'Coordinate is ({x}|{y}).';
     out = ol.coordinate.format(coord, template, 2);
+    paddleDate = datePicker.getDate();
+    paddleHour = datePicker.getHour();
+    var templateDate =  "Date: " + paddleDate + " Hour: " +paddleHour;
+    out+= templateDate;
     console.debug("Tpl:",out);
     $(".curdatetimeloc").text(out);
 
@@ -29,19 +33,21 @@ function dateChanged(dateText) {
     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
     slider.reset();
     datePicker.setDate(dateText)
-        weather.fetchWeather();
+    datePicker.setHour(0);
+    weather.fetchWeather();
+    updateInfo();
 
 }
 
 function sliderChanged(event,ui){
     console.log("Selected hour: " + ui.value)
-        datePicker.setHour(ui.value);
+    datePicker.setHour(ui.value);
     weather.fetchWeather();
-
+    updateInfo();
 }
 
 /**
- * This is called to activate relevant layers on openlayer
+* This is called to activate relevant layers on openlayer
  */
 function layoutNow(data){
     console.debug("Weather:", data);

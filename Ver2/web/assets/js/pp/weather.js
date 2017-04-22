@@ -1,15 +1,9 @@
-var Weather = function()  
+var Weather = function()
 {
     return {
         fetchWeather: function(){
-            weatherFetcher.get(layout)
+            weatherFetcher.get(layoutNow)
         }
-    }
-
-    function layout(data){
-        $("#weather-data").fadeIn( "slow", function() {
-             $("#weather-data").text(JSON.stringify(data))
-          });
     }
 }
 

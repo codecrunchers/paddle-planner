@@ -6,11 +6,11 @@ var Slider = function()
         return {
             init: $( function() {
                _slider.slider({
-                    value:120,
+                    value:1,
                     min: 0,
-                    max: 120,
+                    max: 40,
                     step: 1,
-                    slide: sliderChanged
+                    stop: sliderChanged
                 });
                _slider.slider("value",0);
             } ),
@@ -21,8 +21,10 @@ var Slider = function()
 
             reset: function(){
                 _slider.slider("value",0);
+            }, 
+            setTo:  function(val){
+                _slider.slider("value",val);
             }
-
         }
 
 }
