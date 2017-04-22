@@ -45,6 +45,7 @@ function sliderChanged(event,ui){
  */
 function layoutNow(data){
     console.debug("Weather:", data);
+
     uiOverlays.activate(data);
     map.overlayWind();
     map.overlaySun();

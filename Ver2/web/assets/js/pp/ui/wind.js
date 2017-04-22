@@ -10,6 +10,7 @@ var WindUI = function(){
             var template = link.import.querySelector('#wind-template');
             var clone = document.importNode(template.content, true);
             $(clone).prependTo('.container');
+            wDir = calcWind(data.wind.deg);
             $(".wind-speed-val").prepend(data.wind.speed);
             $("#arrow").addClass(calcWind(data.wind.deg));
         }
