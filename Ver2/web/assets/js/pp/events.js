@@ -14,7 +14,6 @@ $(function() {
         }
         loc.set();
         map.setZoom(2);
-
         weather.fetchWeather();
     });
 });

@@ -19,38 +19,38 @@
 
     <!--[if lte IE 8]><link rel="stylesheet" href="assets/css/ie8.css" /><![endif]-->
     <!--[if lte IE 9]><link rel="stylesheet" href="assets/css/ie9.css" /><![endif]-->
+
+    <!-- templating light-weight-->
+    <link rel="import" href="assets/templates/overlays.html"></link>
+
   </head>
   <body>
     <div class="container">
 
       <div class="location-bar" style="width:800px; margin-right:30px">
         <input type="text" class="form-control input-lg" id="input-push-out-loc" placeholder="Pushing out location, 53.267111, -9.043876"/>
-          <button type="button" id="button-push-out-loc" style="margin:10px">
-            <i class="fa fa-search-plus" aria-hidden="true"></i>
-          </button>
+        <button type="button" id="button-push-out-loc" style="margin:10px">
+          <i class="fa fa-search-plus" aria-hidden="true"></i>
+        </button>
       </div>
+
       <!-- Map -->
       <div class="row">
         <div class="map" id="openmap"/>
         </div>
       </div>
+
       <!-- TimeLine -->
-      <div class="row">
-          <div id="slider" class="slider"></div>
-          <div class="datepicker">
-            <input type="text" id="datepicker" value="Choose day"/>
-          </div>
-          <div id="provider" class="provider"></div>
+      <div id="slider" class="slider"></div>
+      <div class="datepicker">
+        <input type="text" id="datepicker" value="Choose day"/>
       </div>
-      <!-- Date -->
-      <div class="row">
-          <div class="weather" id="weather"/>
-          <div class="col" id="weather-data"></div>
-          <div class="col" id="weather-help"></div>
-          <div class="col" id="weather-unused"></div>
-      </div>
+      <div id="provider" class="provider"></div>
 
     </div>
+
+    </div>
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
@@ -78,6 +78,12 @@
     <script src="assets/js/jquery.scrolly.min.js"></script>
     <script src="assets/js/skel.min.js"></script>
     <script src="assets/js/util.js"></script>
+    <script src="assets/js/pp/browser.js"></script>
+    <script src="assets/js/pp/ui/wind.js"></script>
+    <script src="assets/js/pp/ui/sun.js"></script>
+
+
+
 
     <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
     <script src="assets/js/main.js"></script>

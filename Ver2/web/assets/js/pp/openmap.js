@@ -64,24 +64,24 @@ var MapMaker = function() {
             _map.getView().setZoom(parseInt(zoom));
         },
         overlayWind: function(){
+            __loc = [loc.getLat(), loc.getLon()]
+                console.debug("Loc Wind",__loc);
             overlay = new ol.Overlay({
                 element: document.getElementById('compass'),
-                position: ol.proj.fromLonLat([loc.getLat(), loc.getLon()])
+                position: ol.proj.fromLonLat(__loc)
             });
             _map.addOverlay(overlay);
         },
         overlaySun: function(){
-            overlay = new ol.Overlay({
-                element: document.getElementById('sun-wrapper'),
-                position: ol.proj.fromLonLat([loc.getLat(), loc.getLon()])
+            __loc = [loc.getLat(), loc.getLon()];
+            console.debug("Loc Sun",__loc);
+            overlaySun = new ol.Overlay({
+                element: document.getElementById('wrapper'),
+                position: ol.proj.fromLonLat(__loc)
             });
-            _map.addOverlay(overlay);
+            _map.addOverlay(overlaySun);
         }
 
     }
 
 };
-
-
-
-
