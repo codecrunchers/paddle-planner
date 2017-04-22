@@ -77,7 +77,7 @@ var MapMaker = function() {
             console.debug("Loc Sun",__loc);
             overlaySun = new ol.Overlay({
                 element: document.getElementById('wrapper'),
-                position: ol.proj.fromLonLat(__loc)
+                position: ol.proj.fromLonLat(__loc[1],loc[0])
             });
             _map.addOverlay(overlaySun);
         }
