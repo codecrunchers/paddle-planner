@@ -4,23 +4,13 @@
 @import url("./sun.css");
 
 
-.map {
-  height: 70%;
-  width: 100%;
-  border:1px solid;
-  margin: 14px;
-}
 
 .datepicker {
-    margin: 14px;
 
 }
 
 .slider {
-    margin: 14px;
 }
-
 .weather {
-    margin: 115px;
 }
 

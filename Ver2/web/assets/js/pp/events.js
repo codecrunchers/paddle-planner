@@ -69,5 +69,5 @@ var layoutFunc = layoutNow;
 
 
 
-
-
+weather.fetchWeather();
+map.setZoom(8);updateInfo();

@@ -11,6 +11,8 @@ var MapMaker = function() {
     return {
         createOSMap: function (lon, lat, zoom)
         {
+            loc.setLon(lon);
+            loc.setLat(lat);
             var markerLayer = new ol.layer.Vector({
                 source: new ol.source.Vector({ features: [], projection: 'EPSG:4326' })
             });
