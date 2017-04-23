@@ -2,7 +2,7 @@
 var WindUI = function(){
 
     return {
-        activate: function(data){ 
+       activate: function(data){ 
             console.debug("Wind",data.wind);
             var link = document.querySelector('link[rel="import"]');
 

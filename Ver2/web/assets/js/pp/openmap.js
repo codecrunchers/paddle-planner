@@ -3,6 +3,10 @@ var MapMaker = function() {
     var _map;
     var overlayWindOL;
     var overlaySunOL;
+    var overlayInfoOL;
+    var overlayTideOL;
+
+
 
     return {
         createOSMap: function (lon, lat, zoom)
@@ -68,7 +72,6 @@ var MapMaker = function() {
         },
         overlayWind: function(){
             __loc = [loc.getLat(), loc.getLon()]
-                console.debug("Loc Wind",__loc);
             removeOverlay(overlayWindOL);
             overlayWindOL = new ol.Overlay({
                 element: document.getElementById('compass'),
@@ -78,15 +81,22 @@ var MapMaker = function() {
         },
         overlaySun: function(){
             __loc = [loc.getLat(), loc.getLon()];
-            console.debug("Loc Sun",__loc);
             removeOverlay(overlaySunOL);
             overlaySunOL = new ol.Overlay({
                 element: document.getElementById('weather-wrapper'),
                 position: ol.proj.fromLonLat(__loc)
             });
             _map.addOverlay(overlaySunOL);
+        },
+        overlayInfo: function(){
+            __loc = [loc.getLat(), loc.getLon()];
+            removeOverlay(overlayInfoOL);
+            overlayInfoOL = new ol.Overlay({
+                element: document.getElementById('dt-info'),
+                position: ol.proj.fromLonLat(__loc)
+            });
+            _map.addOverlay(overlayInfoOL);
         }
-
     }
 
     function removeOverlay(overlay){
