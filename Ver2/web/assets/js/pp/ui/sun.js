@@ -27,7 +27,6 @@ var SunUI= function(){
      * clouds -> 8
     */
     function calcSun(weather){
-        console.debug(weather);
         code = parseInt(weather.weather[0].id);
         console.log("Weather Code %s",code);
         switch(code){

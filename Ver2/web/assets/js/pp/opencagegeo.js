@@ -4,43 +4,46 @@ var OpenCageGEO = function() {
     var _cache = new Map();
 
     return {
-        fetchByCoords: function(lon,lat,f){
-            console.log("Call GEO")
-                var updatedUrl = _apiUrl.replace('_PH_',lon+"+"+lat+"&jsonp="+getFnName(f));
+        fetchByCoords: function(f){
+            console.log("FBC Call GEO Lon=%s, Lat=%s",loc.getLon(),loc.getLat());
+            var updatedUrl = _apiUrl.replace('_PH_',loc.getLon()+"+"+loc.getLat());
+            console.log("GEO URL: %s",updatedUrl);
             _key=btoa(updatedUrl);
 
             if(isCached(_key)!=null){
                 console.log("from cache geo");
                 result=isCached(_key);
+                console.log("GEO Response as Sting: %s",JSON.stringify(result));
                 return result;
             }else{
-                console.log("%c geo from service",'background: #aaa; color: #bada55');
+                console.log("%c call to geo service",'background: #aaa; color: #bada55');
                 return fetch(updatedUrl, f);
             }
 
         }
     }
 
-    function getFnName(fn) {
-        var f = typeof fn == 'function';
-        var s = f && ((fn.name && ['', fn.name]) || fn.toString().match(/function ([^\(]+)/));
-        return (!f && 'not a function') || (s && s[1] || 'anonymous');
-    }
 
     function fetch(amendedUrl,f){
         console.log("GEO Searching for " + amendedUrl)
-            $.ajax({
-                jsonp: "f",
-                dataType: "jsonp",
+            $.getJSON({
+                url: amendedUrl,
 				crossDomain: true,
+
+                jsonp: f,
+                dataType: "json",
                 url: amendedUrl,
                  data: {
                     format: "json"
                 },
                 success: function(result){
                     addToCache(btoa(amendedUrl),result);
-                    console.debug("GEO",result);
-                    console.log("String GEO %s,",result);
+                    console.log("GEO Response as Sting: %s",JSON.stringify(result));
+                    console.debug("Received GEO",result);
+                    f(result);
+                },
+                error: function(XMLHttpRequest, textStatus, errorThrown) {
+                    console.log("%c Status: %s , Error %s",'background: #CCC; color: #bada55',textStatus,errorThrown);
                 }
             });
     }

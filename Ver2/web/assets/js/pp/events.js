@@ -6,9 +6,9 @@ $(function() {
             latLong=parseCoords(data);
             loc.setLat(latLong.lat);
             loc.setLon(latLong.lon);
-            console.debug(latLong);
             map.setZoom(6);
             weather.fetchWeather();
+            openCageGEO.fetchByCoords(GeoFetchEvent);
             updateInfoRefactor();
         }
     });
@@ -17,7 +17,11 @@ $(function() {
 
 function GeoFetchEvent(payload){
     console.debug("GEO",payload);
-    $("#dt-info-data").prepend(payload.results[0].components.city + "<br/>")
+    if(payload.status.code!="200"){
+        $("#dt-info-data").prepend("Provider Issue<br/>")
+    }else{
+        $("#dt-info-data").prepend(payload.results[0].components.country + " " + payload.results[0].components.city + "<br/>")
+    }
 }
 
 
@@ -30,8 +34,6 @@ function updateInfoRefactor(){
     out+= templateDate;
     console.debug("Tpl:",out);
     $(".curdatetimeloc").text(out);
-    openCageGEO.fetchByCoords(coord[0],coord[1], GeoFetchEvent);
-
 }
 
 
@@ -40,24 +42,25 @@ function dateChanged(dateText) {
     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
     slider.reset();
     datePicker.setDate(dateText)
-        datePicker.setDateOffset(0);
+    datePicker.setDateOffset(0);
     weather.fetchWeather();
     updateInfoRefactor();
 
 }
 
 function sliderChanged(event,ui){
-    console.log("Selected hour: " + ui.value)
-        datePicker.setDateOffset(ui.value);
+    console.log("Selected hour: " + ui.value);
+    datePicker.setDateOffset(ui.value);
     weather.fetchWeather();
     updateInfoRefactor();
 }
 
 /**
- * This is called to activate relevant layers on openlayer
+ * This eventually called(back) - and /
+ * is called to activate relevant layers on openlayer
  */
 function layoutNow(data){
-    console.debug("Weather:", data);
+    console.debug("Weather to be rendered:", data);
     uiOverlays.activate(data);
     map.overlayWind();
     map.overlaySun();
@@ -79,3 +82,5 @@ var layoutFunc = layoutNow;
 weather.fetchWeather();
 map.setZoom(8);
 updateInfoRefactor();
+openCageGEO.fetchByCoords(GeoFetchEvent);
+
