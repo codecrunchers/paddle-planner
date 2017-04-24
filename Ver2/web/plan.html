@@ -15,6 +15,7 @@
     <![endif]-->
 
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
     <link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
 
     <!--pp -->
@@ -29,90 +30,91 @@
     <div class="row Header">
       <div class="col-sm-11">
         <span class="spinner">Working..</span>
-        <span class="curdatetimeloc">Viewing x at y</span>
-  <input type="text" class="form-control input-lg" id="input-push-out-loc" placeholder="Pushing out location, 53.267111, -9.043876"/>
+        <input type="text" class="form-control input-lg" id="input-push-out-loc" placeholder="Pushing out location, 53.267111, -9.043876"/>
         <button type="button" id="button-push-out-loc" style="margin:10px">
           <i class="fa fa-search-plus" aria-hidden="true"></i>
         </button>
-
       </div>
     </div>
 
     <div class="row Controls">
       <div class="col-sm-1">
-      
 
         <b>Samples</b>
         <a id="sampleGalway">Dublin</a>
         <a id="sampleNorway">Norway</a>
         </p>
-
         <p>Weather Provider</p>
         <select name="provider" id="provider"></select>
-
-
         <h3>Choose date</h3>
         <input type="text" id="datepicker" value="Today - click to change"/>
+
       </div>
 
       <div class="col-sm-10">
-        <div class="map" id="openmap"/>
+        <div class="map" id="openmap"></div>
+      </div>
+
+    </div><!-- eo  controls -->
+
+    <div class="row Hour Bar">
+      <div class="col-sm-1">&nbsp;</div>
+      <div class="col-sm-9">
+        <label  for="slider">Scroll hours from chosen date <span class="active-date-label"></span></label>
+        <div id="slider">
         </div>
       </div>
-      <div class="row Hour BAr">
-        <div class="col-sm-1">&nbsp;</div>
-        <div class="col-sm-9">
-          <div id="slider"></div>
+    </div>
+    <div class="row Footer">
+      <div class="col-sm-11">
+        <div class="pp-footer">
+        Footer: Thanks to:  OpenWeather, OpenLayers, OpenCage
         </div>
       </div>
-      <div class="row Footer">
-        <div class="col-sm-11">
-          Footer: Thanks to:  OpenWeather, OpenLayers, OpenCage
-        </div>
-      </div>
-      <!--{{{-->
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-      <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    </div>
+    <!--{{{-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
-              integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <script src="https://openlayers.org/en/v4.1.0/build/ol.js" type="text/javascript"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" 
+            integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <script src="https://openlayers.org/en/v4.1.0/build/ol.js" type="text/javascript"></script>
 
-      <!-- Scripts -->
-      <script src="assets/js/pp/moment.min.js"></script>
-      <script src="assets/js/util.js"></script>
+    <!-- Scripts -->
+    <script src="assets/js/pp/moment.min.js"></script>
+    <script src="assets/js/util.js"></script>
 
-      <!-- Functions -->
-      <script src="assets/js/pp/search.js"></script>
-      <script src="assets/js/pp/ow.js"></script>
-      <script src="assets/js/pp/openweather.js"></script>
-      <script src="assets/js/pp/weather.js"></script>
-      <script src="assets/js/pp/weatherprovider.js"></script>
-      <script src="assets/js/pp/openmap.js"></script>
-      <script src="assets/js/pp/slider.js"></script>
-      <script src="assets/js/pp/datepicker.js"></script>
-      <script src="assets/js/pp/location.js"></script>
-      <script src="assets/js/pp/tides.js"></script>
+    <!-- Functions -->
+    <script src="assets/js/pp/search.js"></script>
+    <script src="assets/js/pp/ow.js"></script>
+    <script src="assets/js/pp/openweather.js"></script>
+    <script src="assets/js/pp/weather.js"></script>
+    <script src="assets/js/pp/weatherprovider.js"></script>
+    <script src="assets/js/pp/openmap.js"></script>
+    <script src="assets/js/pp/slider.js"></script>
+    <script src="assets/js/pp/datepicker.js"></script>
+    <script src="assets/js/pp/location.js"></script>
+    <script src="assets/js/pp/tides.js"></script>
 
-      <script src="assets/js/pp/opencagegeo.js"></script>
+    <script src="assets/js/pp/opencagegeo.js"></script>
 
-      <!-- ui -->
-      <script src="assets/js/pp/browser.js"></script>
-      <script src="assets/js/pp/ui/wind.js"></script>
-      <script src="assets/js/pp/ui/sun.js"></script>
-      <script src="assets/js/pp/ui/tides.js"></script>
-      <script src="assets/js/pp/ui/info.js"></script>
-      <script src="assets/js/pp/ui/overlays.js"></script>
-      <script src="assets/js/pp/ui/mapOverlays.js"></script>
+    <!-- ui -->
+    <script src="assets/js/pp/browser.js"></script>
+    <script src="assets/js/pp/ui/wind.js"></script>
+    <script src="assets/js/pp/ui/sun.js"></script>
+    <script src="assets/js/pp/ui/tides.js"></script>
+    <script src="assets/js/pp/ui/info.js"></script>
+    <script src="assets/js/pp/ui/overlays.js"></script>
+    <script src="assets/js/pp/ui/mapOverlays.js"></script>
 
 
-      <!--control-->
-      <script src="assets/js/pp/events.js"></script>
-      <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
+    <!--control-->
+    <script src="assets/js/pp/events.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]-->
 
 
-      <!--}}}-->
-      <script>
+    <!--}}}-->
+    <script>
 $("#sampleGalway").click( function() {
   $("#input-push-out-loc").val("53.362792,-6.050456");
   $("#button-push-out-loc").click();
@@ -122,9 +124,9 @@ $("#sampleNorway").click( function() {
   $("#input-push-out-loc").val("68.268334,14.892628");
   $("#button-push-out-loc").click();
 } );
-      </script>
+    </script>
 
-      <div class="container"/>
+    <div class="container"/>
 
 
 

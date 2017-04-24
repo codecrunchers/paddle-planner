@@ -3,10 +3,47 @@
 /* Sun */
 @import url("./sun.css");
 
-#weather-wrapper{
-    width: 100px
+.map{
+    height:700px;
 }
 
-#slider .slider-selection {
-	background: #BABABA;
+#slider {
+    width: 100%;
+    margin: 2em auto;
+}
+
+#slider label {
+    position: absolute;
+    width: 20px;
+    margin-left: -10px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.slider-selection {
+    background: #BABABA;
+}
+
+.ui-slider .ui-slider-handle {
+    left:-.6em;
+    text-decoration:none;
+    text-align:center;
+}
+
+.active-date-label {
+    font-size: 18px; 
+    font-weight: 300; 
+    color: #ffcc66; 
+    margin: 0 0 24px; 
+}
+
+
+.pp-footer {
+    text-align: right;
+}
+
+.gradhrs{
+    padding:4px;
+    margin:8px;
+
 }

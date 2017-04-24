@@ -26,7 +26,7 @@ function GeoFetchEvent(payload){
 
 
 function updateInfoRefactor(){
-    var coord = [loc.getLon(),loc.getLat()];
+/*    var coord = [loc.getLon(),loc.getLat()];
     var template = 'Coordinate is ({x}|{y}).';
     out = ol.coordinate.format(coord, template, 2);
     paddleDate = datePicker.getDate();
@@ -34,6 +34,7 @@ function updateInfoRefactor(){
     out+= templateDate;
     console.debug("Tpl:",out);
     $(".curdatetimeloc").text(out);
+    */
 }
 
 
@@ -41,8 +42,8 @@ function updateInfoRefactor(){
 function dateChanged(dateText) {
     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
     slider.reset();
-    datePicker.setDate(dateText)
-        datePicker.setDateOffset(0);
+    datePicker.setDate(dateText);
+    datePicker.setDateOffset(0);
     weather.fetchWeather();
     updateInfoRefactor();
 
@@ -51,6 +52,7 @@ function dateChanged(dateText) {
 function sliderChanged(event,ui){
     console.log("Selected hour: " + ui.value);
     datePicker.setDateOffset(ui.value);
+    $(".active-date-label").html(moment(datePicker.getDate()).calendar());
     weather.fetchWeather();
     updateInfoRefactor();
 
