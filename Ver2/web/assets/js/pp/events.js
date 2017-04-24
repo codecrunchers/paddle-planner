@@ -21,21 +21,29 @@ function dateChanged(dateText) {
 function sliderChanged(event,ui){
     console.log("Selected hour: " + ui.value);
     datePicker.setDateOffset(ui.value);
-    $(".active-date-label").html(moment(datePicker.getDate()).calendar());
     weather.fetchWeather();
+    tides.fetch();
+    $(".active-date-label").html(moment(datePicker.getDate()).calendar());
+
 }
 
 
-latestTideData = Object;
 function tidesUpdated(tidesdata){
-    console.debug("Tides:",tidesdata);
-/*    tidesdata.extremes.forEach(function(tideReport){
-        var reportDate = moment.unix(tideReport.dt).calendar();
-        console.log("Report Date %s",reportDate);
-    });*/
-    latestTideData = JSON.stringify(tidesdata);
-    $("#tides-info-data").append($("<span>"+JSON.stringify(tidesdata)+"</span>"));
-
+    console.debug("Tides Recevied:",tidesdata);
+    $report="<div>";
+    if(tidesdata.status!="200"){
+        $report = "Provider Error";
+    }else{
+        tidesdata.extremes.forEach(function(tideReport){
+            tideTime=moment(tideReport.dt*1000);
+            if(datePicker.getDate().add(24, 'hours').isBefore(tideTime)){
+                $report+=tideTime.format('dddd DD/MM/YYYY') + '(' + tideReport.type + ')' + tideReport.height + '</br>';
+            }
+        });
+        $report+="</div>";
+    }
+    console.log("Tides Report %",$report);
+    $("#tides-info-data").prepend($report);
 }
 
 /**
@@ -85,8 +93,8 @@ $("#sampleNorway").click( function() {
         weather.fetchWeather();
         map.jumpTo(latLong.lon,latLong.lat);
         map.setZoom(6);
-        tides.fetch();
         openCageGEO.fetchByCoords(GeoFetchEvent);
+        tides.fetch();
     }
                                             });}
 
