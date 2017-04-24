@@ -38,7 +38,7 @@ function tidesUpdated(tidesdata){
         tidesdata.extremes.forEach(function(tideReport){
             tideTime=moment(tideReport.dt*1000);
             if(datePicker.getDate().add(24, 'hours').isBefore(tideTime)){
-                $report+=tideTime.format('ddd DD/MM') + '(' + tideReport.type + ')    ' + tideReport.height + '</br>';
+                $report+=tideTime.format('ddd DD/MM hh:mm') + '(' + tideReport.type + ')    ' + tideReport.height + '</br>';
             }
         });
         $report+="</div>";

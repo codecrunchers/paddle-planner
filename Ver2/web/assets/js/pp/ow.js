@@ -27,8 +27,7 @@ var Ow = function(){
 
     function getForecastType(){
         var date = datePicker.getDate();
-        console.debug("Is Today",date);
-        if(moment(date).calendar().indexOf("Today") >= 0){
+        if(moment(date).calendar().indexOf("Today") >= 0){ //within 24hrs ?
             return weatherNow;
         }else{
             return weatherFcast;
