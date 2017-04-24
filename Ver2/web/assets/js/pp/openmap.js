@@ -1,6 +1,7 @@
 
 var MapMaker = function() {
     var _map;
+    var _paddler;
 
     return {
         createOSMap: function (lon, lat, zoom)
@@ -39,26 +40,34 @@ var MapMaker = function() {
         addMarker: function(id, lon, lat)
         {
             //create a point
-            var geom = new ol.geom.Point( ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857') );
-            var feature = new ol.Feature(geom);
-            feature.setStyle([
-                    new ol.style.Style({
-                        image: new ol.style.Icon(({
-                            anchor: [0.5, 1],
-                            anchorXUnits: 'fraction',
-                            anchorYUnits: 'fraction',
-                            opacity: 1,
-                            src: 'assets/images/paddler.png'
-                        }))
-                    })
-            ]);
+            if(_paddler!=undefined){
+                console.debug("Paddler Marker",_paddler);
+                geom = new ol.geom.Point(ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857') );
+                _paddler.setGeometry(geom);
+            }else{
+                console.log("Paddler Marker is : %s",_paddler);
 
-            if (id != null)
-            {
-                feature.setId(id);
+                geom = new ol.geom.Point(ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857') );
+                _paddler = new ol.Feature(geom);
+                _paddler.setStyle([
+                        new ol.style.Style({
+                            image: new ol.style.Icon(({
+                                anchor: [0.5, 1],
+                                anchorXUnits: 'fraction',
+                                anchorYUnits: 'fraction',
+                                opacity: 1,
+                                src: 'assets/images/paddler.png'
+                            }))
+                        })
+                ]);
+
+                if (id != null)
+                {
+                    _paddler.setId(id);
+                }
+
+                _map.getLayers().item(1).getSource().addFeature(_paddler);
             }
-
-            _map.getLayers().item(1).getSource().addFeature(feature);
         },
         getView: function(){
             return _map.getView();
