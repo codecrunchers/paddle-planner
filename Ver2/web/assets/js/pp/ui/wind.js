@@ -19,11 +19,11 @@ var WindUI = function(){
     }
 
     function calcWind(degree){
-        dirs = ['n','e','s','w']; //TODO etc /45
-        deg = parseInt(degree);
-        reduced = deg/90;
-        result = dirs[parseInt(reduced)];
-        console.log("WD Val: %n",result);
+        dirs = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW','N'];
+        index = degree % 360
+        index = parseInt(index/ 22.5) + 1
+        result= dirs[index];
+        console.log("WD Val: %s",result);
         return result;
 
     }
