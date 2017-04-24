@@ -32,8 +32,9 @@ var DatePicker = function()
             }
         }
 
+
     function calcOffSet(){
-        var now = moment(_day.get()).get();
+        var now = moment(_day);
         return now.add(parseInt(_hour*3), 'hours');
     }}
 
