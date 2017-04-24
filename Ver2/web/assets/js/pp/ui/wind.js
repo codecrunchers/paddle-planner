@@ -14,7 +14,7 @@ var WindUI = function(){
             wDir = calcWind(data.wind.deg);
             $(".speedk").prepend(data.wind.speed + " ");
             $(".wind-speed-val").prepend(wDir.toUpperCase() + " ");
-            $("#arrow").addClass(calcWind(data.wind.deg));
+            $("#arrow").addClass(wDir.toLowerCase());
         }
     }
 
