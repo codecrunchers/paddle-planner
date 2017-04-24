@@ -1,7 +1,6 @@
 var OpenCageGEO = function() {
     var _apiKey = "5a5f067ce860611c5ff659a845afe65c";//oops
     var _apiUrl = " http://api.opencagedata.com/geocode/v1/json?q=_PH_&key="+_apiKey;
-    var _cache = new Map();
 
     return {
         fetchByCoords: function(f){
@@ -10,9 +9,9 @@ var OpenCageGEO = function() {
             console.log("GEO URL: %s",updatedUrl);
             _key=btoa(updatedUrl);
 
-            if(isCached(_key)!=null){
+            if(ppCache.contains(_key)!=null){
                 console.log("from cache geo");
-                result=isCached(_key);
+                result=ppCache.contains(_key);
                 console.log("GEO Response as Sting: %s",JSON.stringify(result));
                 return result;
             }else{
@@ -26,18 +25,18 @@ var OpenCageGEO = function() {
 
     function fetch(amendedUrl,f){
         console.log("GEO Searching for " + amendedUrl)
+            //TODO: Fix hybord f json p and url hack
             $.getJSON({
                 url: amendedUrl,
-				crossDomain: true,
-
+                crossDomain: true,
                 jsonp: f,
                 dataType: "json",
                 url: amendedUrl,
-                 data: {
+                data: {
                     format: "json"
                 },
                 success: function(result){
-                    addToCache(btoa(amendedUrl),result);
+                    ppCache.add(btoa(amendedUrl),result);
                     console.debug("Received GEO",result);
                     f(result);
                 },
@@ -47,22 +46,6 @@ var OpenCageGEO = function() {
             });
     }
 
-    //tODO: Refactor cache
-    function addToCache(key,result){
-        console.log("Caching GEO %s",key)
-            _cache.set(key,result);
-    }
-
-    function isCached(key){
-        console.log("Searching for GEO %s",key);
-        console.debug(_cache);
-        if(_cache.has(key)){
-            return _cache.get(key)
-        }else{
-            return null
-        }
-
-    }
 };
 
 

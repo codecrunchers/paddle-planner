@@ -29,14 +29,14 @@ var MapMaker = function() {
         getMap: function(){
             return _map;
         },
-        jumpTo: function(lon, lat, zoom) {
+        jumpTo: function(lon, lat) {
             view = _map.getView();
             view.setCenter(ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857'));
             map.addMarker("PaddlingArea",lon,lat);
             return false;
         },
 
-        addMarker: function(id, lon, lat)  
+        addMarker: function(id, lon, lat)
         {
             //create a point
             var geom = new ol.geom.Point( ol.proj.transform([lat,lon], 'EPSG:4326', 'EPSG:3857') );
@@ -48,7 +48,7 @@ var MapMaker = function() {
                             anchorXUnits: 'fraction',
                             anchorYUnits: 'fraction',
                             opacity: 1,
-                            src: 'https://openlayers.org/en/v3.19.1/examples/data/icon.png'
+                            src: 'assets/images/paddler.png'
                         }))
                     })
             ]);

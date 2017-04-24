@@ -3,7 +3,7 @@ function supportsImports() {
 }
 
 if (supportsImports()) {
-    console.log("Pass");  
+    console.log("Pass");
 } else {
-    console.log("Fail");
+    $('.spinner').append($('<div class="alert alert-danger" role="alert">"Browser is <strong>not</strong> compatible. Sorry - try chrom*</div>'));
 }

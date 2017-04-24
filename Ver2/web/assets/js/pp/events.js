@@ -6,10 +6,10 @@ $(function() {
             latLong=parseCoords(data);
             loc.setLat(latLong.lat);
             loc.setLon(latLong.lon);
-            map.setZoom(6);
             weather.fetchWeather();
+            map.jumpTo(latLong.lon,latLong.lat)
+            map.setZoom(6);
             openCageGEO.fetchByCoords(GeoFetchEvent);
-            updateInfoRefactor();
         }
     });
 
@@ -58,6 +58,11 @@ function sliderChanged(event,ui){
 
 }
 
+
+function tidesUpdated(tidesdata){
+    console.debug("Tides:",tidesdata);
+}
+
 /**
  * This eventually called(back) - and /
  * is called to activate relevant layers on openlayer
@@ -89,4 +94,5 @@ weather.fetchWeather();
 map.setZoom(8);
 updateInfoRefactor();
 openCageGEO.fetchByCoords(GeoFetchEvent);
-
+tides.fetch();
+map.jumpTo(53.267111,-9.043876);
