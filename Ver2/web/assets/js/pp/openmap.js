@@ -1,10 +1,7 @@
 
 var MapMaker = function() {
     var _map;
-    var overlayWindOL;
-    var overlaySunOL;
-    var overlayInfoOL;
-    var overlayTideOL;
+
     return {
         createOSMap: function (lon, lat, zoom)
         {
@@ -69,40 +66,25 @@ var MapMaker = function() {
         setZoom: function(zoom){
             _map.getView().setZoom(parseInt(zoom));
         },
-        overlayWind: function(){
-            __loc = [loc.getLat(), loc.getLon()]
-            removeOverlay(overlayWindOL);
-            overlayWindOL = new ol.Overlay({
-                element: document.getElementById('compass'),
-                position: ol.proj.fromLonLat(__loc)
+        activateOverlays: function(){
+            console.debug("Overlay",overlays.getOverlays());
+            overlays.getOverlays().forEach(function(olObj){
+                console.debug("Overlay to be activated",olObj.obj);
+                overlays.removeOverlay(olObj.obj);
+
+                weatherOl = new ol.Overlay({
+                    element: document.getElementById(olObj.elementId),
+                    position: ol.proj.fromLonLat( [loc.getLat(), loc.getLon()] )
+                });
+
+                weatherOl.setOffset(olObj.offset);
+                _map.addOverlay(weatherOl);
+                olObj.olObj = weatherOl;
             });
-            _map.addOverlay(overlayWindOL);
-        },
-        overlaySun: function(){
-            __loc = [loc.getLat(), loc.getLon()];
-            removeOverlay(overlaySunOL);
-            overlaySunOL = new ol.Overlay({
-                element: document.getElementById('weather-wrapper'),
-                position: ol.proj.fromLonLat(__loc)
-            });
-            _map.addOverlay(overlaySunOL);
-        },
-        overlayInfo: function(){
-            __loc = [loc.getLat(), loc.getLon()];
-            removeOverlay(overlayInfoOL);
-            overlayInfoOL = new ol.Overlay({
-                element: document.getElementById('dt-info'),
-                position: ol.proj.fromLonLat(__loc)
-            });
-            overlayInfoOL.setOffset([-85,150]);
-            _map.addOverlay(overlayInfoOL);
+
         }
     }
 
-    function removeOverlay(overlay){
-        result = _map.removeOverlay(overlay);
-        if(null == result) console.log("No OL Removed from %o",_map);
+}
 
-    }
 
-};

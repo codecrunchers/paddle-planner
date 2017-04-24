@@ -2,3 +2,7 @@
 @import url("./compass.css");
 /* Sun */
 @import url("./sun.css");
+
+#weather-wrapper{
+    width: 100px
+}
