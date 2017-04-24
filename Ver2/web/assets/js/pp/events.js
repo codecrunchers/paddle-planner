@@ -3,7 +3,8 @@ function GeoFetchEvent(payload){
     if(payload.status.code!="200"){
         $("#dt-info-data").prepend("Provider Issue<br/>")
     }else{
-        $("#dt-info-data").prepend(payload.results[0].components.country + " " + payload.results[0].components.city + "<br/>")
+        city = payload.results[0].components.city == undefined ? " ?  " : payload.results[0].components.city
+        $("#dt-info-data").prepend(payload.results[0].components.country + ", " + city + "<br/>")
     }
 }
 
@@ -37,7 +38,7 @@ function tidesUpdated(tidesdata){
         tidesdata.extremes.forEach(function(tideReport){
             tideTime=moment(tideReport.dt*1000);
             if(datePicker.getDate().add(24, 'hours').isBefore(tideTime)){
-                $report+=tideTime.format('dddd DD/MM/YYYY') + '(' + tideReport.type + ')' + tideReport.height + '</br>';
+                $report+=tideTime.format('ddd DD/MM') + '(' + tideReport.type + ')    ' + tideReport.height + '</br>';
             }
         });
         $report+="</div>";
