@@ -1,0 +1,167 @@
+<html>
+  <head>
+    <title>Paddle Planner</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://unpkg.com/purecss@0.6.2/build/pure-min.css" integrity="sha384-UQiGfs9ICog+LwheBSRCt1o5cbyKIHbwjWscjemyBMT9YCUMZffs6UqUTd0hObXD" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://openlayers.org/en/v4.1.0/css/ol.css" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <!--pp -->
+    <link rel="stylesheet" href="assets/css/pp/pp.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- templating attempt light-weight-->
+    <link rel="import" href="assets/templates/overlays.html"></link>
+  </head>
+  <body>
+     <div class='pure-g grid-example'>
+        <div class='pure-u-1 ghost-wrap'>
+          <code class='l-box'>.pure-g-r</code>
+          <div class='pure-g-r'>
+            <div class='pure-u-1-2'>
+              <div class='boxy'>
+                <div class='top_divider'>
+                  <h3>.pure-u-1-2</h3>
+                </div>
+                <p>This takes up half the row size</p>
+              </div>
+            </div>
+            <div class='pure-u-1-2'>
+              <div class='boxy'>
+                <div class='top_divider'>
+                  <h3>.pure-u-1-2</h3>
+                </div>
+                <p>This one takes up the other half</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='pure-g grid-example'>
+        <div class='pure-u-1 ghost-wrap'>
+          <code class='l-box'>.pure-g-r</code>
+          <div class='pure-g-r'>
+            <div class='pure-u-1-3'>
+              <div class='boxy'>
+                <div class='top_divider'>
+                  <h3>pure-u-1-3</h3>
+                </div>
+                <p>This one takes 1/3rd of the Column Size</p>
+              </div>
+            </div>
+            <div class='pure-u-1-3'>
+              <div class='boxy'>
+                <div class='top_divider'>
+                  <h3>pure-u-1-3</h3>
+                </div>
+                <p>This one takes 1/3rd of the Column Size</p>
+              </div>
+            </div>
+            <div class='pure-u-1-3'>
+              <div class='boxy'>
+                <div class='top_divider'>
+                  <h3>pure-u-1-3</h3>
+                </div>
+                <p>This one takes 1/3rd of the Column Size</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class='pure-g grid-example'>
+        <div class='pure-u-1 ghost-wrap'>
+          <code class='l-box'>.pure-g-r</code>
+          <div class='pure-g-r'>
+            <div class='pure-u-1'>
+              <div class='boxy'>
+                <div class='top_divider'>
+                  <h3>pure-u-1</h3>
+                </div>
+                <p>This greedy fuck takes the whole column width</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class='container'>
+      <div class='pure-g-r footer'>
+        <div class='pure-u-1'>
+          <div class='pure-menu-horizontal'>
+            <ul>
+              <li>This site has no copyright. Made by Lionel Tan 2014 with:</li>
+              <li>
+                <a class='middleman logo' href='http://middlemanapp.com/'>Middleman</a>
+              </li>
+              <li>
+                <a class='purecss logo' href='http://purecss.io/'>PureCSS by Yahoo</a>
+              </li>
+              <li>and hosted on</li>
+              <li>
+                <a class='github logo' href='https://github.com/awesomelionel/purecss-grid-example'>Github</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="pure-g">
+
+      <div class="pure-u-1"><p>
+        <span class="spinner">Working..</span>
+        <span class="curdatetimeloc">Viewing x at y</span>
+
+        </p>
+      </div>
+
+      <div class="pure-u-1">
+        <div class="pure-u-1-4">
+          <div class="map" id="openmap"/>
+          </div>
+        </div>
+
+        <div class="pure-u-1">
+
+          <div class="pure-u-3-4">
+            a
+            a
+            a
+          </div>
+        </div>
+
+      <div class="pure-u-1"><p>Footer</p></div>
+      <div class="container"></div>
+    </div>
+
+    <!--{{{-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://openlayers.org/en/v4.1.0/build/ol.js" type="text/javascript"></script>
+
+    <!-- Scripts -->
+    <script src="assets/js/pp/moment.min.js"></script>
+    <!-- Functions -->
+    <script src="assets/js/pp/search.js"></script>
+    <script src="assets/js/pp/ow.js"></script>
+    <script src="assets/js/pp/openweather.js"></script>
+    <script src="assets/js/pp/weather.js"></script>
+    <script src="assets/js/pp/weatherprovider.js"></script>
+    <script src="assets/js/pp/openmap.js"></script>
+    <script src="assets/js/pp/slider.js"></script>
+    <script src="assets/js/pp/datepicker.js"></script>
+    <script src="assets/js/pp/location.js"></script>
+    <script src="assets/js/pp/tides.js"></script>
+    <!-- ui -->
+    <script src="assets/js/pp/browser.js"></script>
+    <script src="assets/js/pp/ui/wind.js"></script>
+    <script src="assets/js/pp/ui/sun.js"></script>
+    <script src="assets/js/pp/ui/tides.js"></script>
+    <script src="assets/js/pp/ui/info.js"></script>
+    <script src="assets/js/pp/ui/overlays.js"></script>
+    <!--control-->
+    <script src="assets/js/pp/events.js"></script>
+    <!--[if lte IE 8]><script src="assets/js/ie/respond.min.js"></script><![endif]--><!--}}}-->
+  </body>
+</html>
+

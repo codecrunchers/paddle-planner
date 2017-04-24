@@ -2,8 +2,9 @@
 var WindUI = function(){
 
     return {
-       activate: function(data){ 
+       activate: function(data){
             console.debug("Wind",data.wind);
+            $(".compass").remove();
             var link = document.querySelector('link[rel="import"]');
 
             // Clone the <template> in the import.

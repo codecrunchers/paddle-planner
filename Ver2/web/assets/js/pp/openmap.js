@@ -5,9 +5,6 @@ var MapMaker = function() {
     var overlaySunOL;
     var overlayInfoOL;
     var overlayTideOL;
-
-
-
     return {
         createOSMap: function (lon, lat, zoom)
         {
@@ -97,6 +94,7 @@ var MapMaker = function() {
                 element: document.getElementById('dt-info'),
                 position: ol.proj.fromLonLat(__loc)
             });
+            overlayInfoOL.setOffset([-85,150]);
             _map.addOverlay(overlayInfoOL);
         }
     }

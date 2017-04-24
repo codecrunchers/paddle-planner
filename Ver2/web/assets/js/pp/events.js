@@ -9,14 +9,14 @@ $(function() {
             console.debug(latLong);
             map.setZoom(6);
             weather.fetchWeather();
-            updateInfo();
+            updateInfoRefactor();
         }
     });
 
 });
 
 
-function updateInfo(){
+function updateInfoRefactor(){
     var coord = [loc.getLon(),loc.getLat()];
     var template = 'Coordinate is ({x}|{y}).';
     out = ol.coordinate.format(coord, template, 2);
@@ -35,15 +35,15 @@ function dateChanged(dateText) {
     datePicker.setDate(dateText)
     datePicker.setHour(0);
     weather.fetchWeather();
-    updateInfo();
+    updateInfoRefactor();
 
 }
 
 function sliderChanged(event,ui){
     console.log("Selected hour: " + ui.value)
-    datePicker.setHour(ui.value);
+    datePicker.setDateOffset(ui.value);
     weather.fetchWeather();
-    updateInfo();
+    updateInfoRefactor();
 }
 
 /**
@@ -70,4 +70,5 @@ var layoutFunc = layoutNow;
 
 
 weather.fetchWeather();
-map.setZoom(8);updateInfo();
+map.setZoom(8);
+updateInfoRefactor();
