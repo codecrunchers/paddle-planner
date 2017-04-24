@@ -17,8 +17,7 @@ var InfoUI = function(){
         var coord = [loc.getLon(),loc.getLat()];
         var template = '{x}N,{y}W ';
         out = ol.coordinate.format(coord, template, 2);
-        paddleDate = datePicker.getDate();
-        paddleHour = datePicker.getHour();
+        paddleDate = moment(datePicker.getDate()).calendar();
         var templateDate =  "<br/>" + paddleDate;
         out+= templateDate;
         console.log("OverLayInfo Data: %s ",out);

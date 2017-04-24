@@ -20,7 +20,7 @@ var Ow = function(){
                 console.log("from cache");
                 result=isCached(_key);
                 if(result.list!=null){
-                    result = result.list[datePicker.getHour()];
+                    result = result.list[datePicker.getDateOffset()];
                 }
                 layoutFunc(result);
             }else{
@@ -32,7 +32,8 @@ var Ow = function(){
 
     function checkAndSetForecast(){
         date = datePicker.getDate();
-        if(date.indexOf("Today") >= 0){
+        console.debug("Is Today",date);
+        if(moment(date).calendar().indexOf("Today") >= 0){
             _apiUrl = weatherNow;
         }else{
             _apiUrl = weatherFcast;
@@ -47,7 +48,7 @@ var Ow = function(){
                 success: function(result){
                     addToCache(btoa(amendedUrl),result);
                     if(result.list!=null){
-                        result = result.list[datePicker.getHour()];
+                        result = result.list[datePicker.getDateOffset()];
                     }
                     f(result);
                 }

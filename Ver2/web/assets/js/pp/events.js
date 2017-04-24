@@ -21,8 +21,7 @@ function updateInfoRefactor(){
     var template = 'Coordinate is ({x}|{y}).';
     out = ol.coordinate.format(coord, template, 2);
     paddleDate = datePicker.getDate();
-    paddleHour = datePicker.getHour();
-    var templateDate =  "Date: " + paddleDate + " Hour: " +paddleHour;
+    var templateDate =  "Date: " + paddleDate; 
     out+= templateDate;
     console.debug("Tpl:",out);
     $(".curdatetimeloc").text(out);
@@ -33,7 +32,7 @@ function dateChanged(dateText) {
     console.log("Selected date: " + dateText + "; input's current value: " + this.value);
     slider.reset();
     datePicker.setDate(dateText)
-    datePicker.setHour(0);
+    datePicker.setDateOffset(0);
     weather.fetchWeather();
     updateInfoRefactor();
 
