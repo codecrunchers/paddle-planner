@@ -29,7 +29,9 @@
 
     <div class="row Header">
       <div class="col-sm-11">
-        <span class="spinner">Working..</span>
+
+  <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/loader.gif" alt="Loading..." class="loading"><br />Loading...</div>
+        <div><img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/93/loader.gif" alt="Loading..." class="loading"><br />Loading...</div>
         <input type="text" class="form-control input-lg" id="input-push-out-loc" placeholder="Pushing out location, 53.267111, -9.043876"/>
         <button type="button" id="button-push-out-loc" style="margin:10px">
           <i class="fa fa-search-plus" aria-hidden="true"></i>
@@ -86,6 +88,17 @@
     <script src="assets/js/util.js"></script>
     <script src="assets/js/pp/cache.js"></script>
 
+    <!-- ui -->
+    <script src="assets/js/pp/browser.js"></script>
+    <script src="assets/js/pp/ui/wind.js"></script>
+    <script src="assets/js/pp/ui/sun.js"></script>
+    <script src="assets/js/pp/ui/tidesui.js"></script>
+    <script src="assets/js/pp/ui/info.js"></script>
+    <script src="assets/js/pp/ui/overlays.js"></script>
+    <script src="assets/js/pp/ui/mapOverlays.js"></script>
+
+
+
     <!-- Functions -->
     <script src="assets/js/pp/search.js"></script>
     <script src="assets/js/pp/ow.js"></script>
@@ -97,17 +110,7 @@
     <script src="assets/js/pp/datepicker.js"></script>
     <script src="assets/js/pp/location.js"></script>
     <script src="assets/js/pp/tides.js"></script>
-
     <script src="assets/js/pp/opencagegeo.js"></script>
-
-    <!-- ui -->
-    <script src="assets/js/pp/browser.js"></script>
-    <script src="assets/js/pp/ui/wind.js"></script>
-    <script src="assets/js/pp/ui/sun.js"></script>
-    <script src="assets/js/pp/ui/tidesui.js"></script>
-    <script src="assets/js/pp/ui/info.js"></script>
-    <script src="assets/js/pp/ui/overlays.js"></script>
-    <script src="assets/js/pp/ui/mapOverlays.js"></script>
 
 
     <!--control-->
@@ -116,21 +119,7 @@
 
 
     <!--}}}-->
-    <script>
-$("#sampleGalway").click( function() {
-  $("#input-push-out-loc").val("53.362792,-6.050456");
-  $("#button-push-out-loc").click();
-} );
-
-$("#sampleNorway").click( function() {
-  $("#input-push-out-loc").val("68.268334,14.892628");
-  $("#button-push-out-loc").click();
-} );
-    </script>
-
+    <!-- nb for map overlays-->
     <div class="container"/>
-
-
-
   </body>
 </html

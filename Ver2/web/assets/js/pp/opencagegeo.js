@@ -1,17 +1,17 @@
 var OpenCageGEO = function() {
-    var _apiKey = "5a5f067ce860611c5ff659a845afe65c";//oops
-    var _apiUrl = " http://api.opencagedata.com/geocode/v1/json?q=_PH_&key="+_apiKey;
 
     return {
         fetchByCoords: function(f){
+            var _apiKey = "5a5f067ce860611c5ff659a845afe65c";//oops
+            var _apiUrl = " http://api.opencagedata.com/geocode/v1/json?q=_PH_&key="+_apiKey;
             console.log("FBC Call GEO Lon=%s, Lat=%s",loc.getLon(),loc.getLat());
             var updatedUrl = _apiUrl.replace('_PH_',loc.getLon()+"+"+loc.getLat());
             console.log("GEO URL: %s",updatedUrl);
-            _key=btoa(updatedUrl);
+            var _key=btoa(updatedUrl);
 
             if(ppCache.contains(_key)!=null){
                 console.log("from cache geo");
-                result=ppCache.contains(_key);
+                var result=ppCache.contains(_key);
                 console.log("GEO Response as Sting: %s",JSON.stringify(result));
                 return result;
             }else{

@@ -93,7 +93,6 @@ var MapMaker = function() {
 
         }
     }
-
 }
 
 
