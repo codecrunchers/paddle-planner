@@ -30,7 +30,7 @@ function updateInfoRefactor(){
     var template = 'Coordinate is ({x}|{y}).';
     out = ol.coordinate.format(coord, template, 2);
     paddleDate = datePicker.getDate();
-    var templateDate =  "Date: " + paddleDate;
+    var templateDate =  "Date: " + moment(paddleDate).calendar();
     out+= templateDate;
     console.debug("Tpl:",out);
     $(".curdatetimeloc").text(out);
@@ -53,6 +53,7 @@ function sliderChanged(event,ui){
     datePicker.setDateOffset(ui.value);
     weather.fetchWeather();
     updateInfoRefactor();
+
 }
 
 /**
@@ -61,10 +62,12 @@ function sliderChanged(event,ui){
  */
 function layoutNow(data){
     console.debug("Weather to be rendered:", data);
+
     uiOverlays.activate(data);
     map.overlayWind();
     map.overlaySun();
     map.overlayInfo();
+
 
 }
 
