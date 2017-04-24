@@ -2,7 +2,7 @@ var UIOverlays = function(){
     overlays = Map;
     var overlayWindOL={obj:null,elementId:"compass",offset:[0,0]};
     var overlaySunOL={obj:null,elementId:"weather-wrapper",offset:[0,0]};
-    var overlayInfoOL={obj:null,elementId:"dt-info",offset:[0,0]};
+    var overlayInfoOL={obj:null,elementId:"dt-info",offset:[-185,50]};
 
     return {
         getOverlays: function(){

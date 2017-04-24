@@ -38,7 +38,6 @@ var OpenCageGEO = function() {
                 },
                 success: function(result){
                     addToCache(btoa(amendedUrl),result);
-                    console.log("GEO Response as Sting: %s",JSON.stringify(result));
                     console.debug("Received GEO",result);
                     f(result);
                 },

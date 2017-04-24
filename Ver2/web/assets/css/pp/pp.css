@@ -6,3 +6,7 @@
 #weather-wrapper{
     width: 100px
 }
+
+#slider .slider-selection {
+	background: #BABABA;
+}

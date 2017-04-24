@@ -79,7 +79,7 @@ var MapMaker = function() {
 
                 weatherOl.setOffset(olObj.offset);
                 _map.addOverlay(weatherOl);
-                olObj.olObj = weatherOl;
+                olObj.obj = weatherOl;
             });
 
         }
