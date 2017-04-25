@@ -4,7 +4,7 @@ function GeoFetchEvent(payload){
         $("#dt-info-data").prepend("Provider Issue<br/>")
     }else{
         city = payload.results[0].components.city == undefined ? " ?  " : payload.results[0].components.city
-        $("#dt-info-data").prepend(payload.results[0].components.country + ", " + city + "<br/>")
+            $("#dt-info-data").prepend(payload.results[0].components.country + ", " + city + "<br/>")
     }
 }
 
@@ -31,17 +31,20 @@ function sliderChanged(event,ui){
 
 function tidesUpdated(tidesdata){
     console.debug("Tides Recevied:",tidesdata);
-    $report="<div>";
+    $report="";
     if(tidesdata.status!="200"){
         $report = "Provider Error";
     }else{
         tidesdata.extremes.forEach(function(tideReport){
             tideTime=moment(tideReport.dt*1000);
-            if(datePicker.getDate().add(24, 'hours').isBefore(tideTime)){
-                $report+=tideTime.format('ddd DD/MM hh:mm') + '(' + tideReport.type + ')    ' + tideReport.height + '</br>';
+            paddleTime = datePicker.getDate();
+            paddleTimeMiunus1 = datePicker.getDate().subtract(1,'day');
+            if(paddleTimeMiunus1 == tideTime.dayOfYear() || paddleTime.dayOfYear() == tideTime.dayOfYear()){
+                $report+="<div class='" + tideReport.type.toLowerCase() + "'>";
+                $report+=tideTime.format('ddd DD/MM hh:mm') + '(' + tideReport.type + ')    ' + tideReport.height + '</div>';
             }
         });
-        $report+="</div>";
+
     }
     console.log("Tides Report %",$report);
     $("#tides-info-data").prepend($report);
@@ -69,10 +72,16 @@ layoutFunc = layoutNow;
 
 
 $( document ).ready(function() {
-    console.log( "ready!" );
     $("#input-push-out-loc").val("53.267111,-9.043876"); //paddle in Gaillimh
     $("#button-push-out-loc").click();
+
+
+    console.log( "ready!" );
+
+
 });
+
+
 
 $("#sampleGalway").click( function() {
     $("#input-push-out-loc").val("53.362792,-6.050456");

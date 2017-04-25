@@ -5,6 +5,8 @@ var TidesUI = function(){
             if ( $( "#tides-info-data" ).length ) {
                 console.log("Tides Exists");
                  //$("#tides-info-data").empty();
+                 $( "#tides-info-data" ).empty();
+                 //return;
             }
 
             var link = document.querySelector('link[rel="import"]');
