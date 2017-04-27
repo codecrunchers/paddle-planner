@@ -2,13 +2,25 @@ console.log('starting function')
 var AWS = require('aws-sdk');
 AWS.config.update({region: 'us-west-2'});
 
+var http = require("http");
+var options = {
+  hostname: 'www.postcatcher.in',
+  port: 80,
+  path: '/catchers/544b09b4599c1d0200000289',
+  method: 'POST',
+  headers: {
+      'Content-Type': 'application/json',
+  }
+};
+
+
 exports.handle = function(e, ctx, cb) {
     console.log('processing event: %j', e);
     var lon = e.lon;
     var lat = e.lat;
 
     var _apiKey = process.env.S3_BUCKET
-    var _apiUrl = " http://api.opencagedata.com/geocode/v1/json?q=_PH_&key="+_apiKey;
+    var _apiUrl = "http://api.opencagedata.com/geocode/v1/json?q=_PH_&key="+_apiKey;
     var updatedUrl = _apiUrl.replace('_PH_',lon+"+"+lat);
     console.log("FBC Calliong %s Lon=%s, Lat=%s",updatedUrl,lon,lat);
 
