@@ -32,8 +32,9 @@ var argv = require('yargs')
       })
 .argv;
 
+var lambdaDir = "functions"; //apex firendly
 var lambdaName = argv.lambda;
-var lambdaPath = 'lambda/' + lambdaName;
+var lambdaPath = lambdaDir + '/' + lambdaName;
 var dist = lambdaPath + '/dist';
   
 //check that directory exists

@@ -9,13 +9,13 @@ var apiUrlTpl = "/geocode/v1/json?q=_PH_&key=_KEY_";
 
 function performRequest(data, success) {
 
-    var lon = 68.21;
-    var lat  = 133.43;
-
+    lon = 68.21;
+    lat  = 133.43;
+    path =  apiUrlTpl.replace("_PH_",lon+"+"+lat).replace("_KEY_",apiKey);
     var options = {
         hostname: host,
         port: 80,
-        path: apiUrlTpl.replace("_PH_",lon+"+"+lat).replace("_KEY_",apiKey);
+        path: path,
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -48,7 +48,7 @@ exports.handle = function(e, ctx, cb) {
         console.log('done processing event: %j', result);
         cb(null,result);
     };
-    performRequest(endpoint, method, data, success);
+    performRequest(host, 'GET', "{}", success);
 };
 
 
