@@ -11,7 +11,7 @@ const emailSubject = 'Current Weather';
 module.exports.run = (event, context, callback) => {
   getForecast(latitude, longitude)
     .then((forecast) => { // eslint-disable-line arrow-body-style
-      return sendEmail(emailRecpient, emailSubject, forecast);
+      return "WORKING" //sendEmail(emailRecpient, emailSubject, forecast);
     })
     .then(() => {
       callback(null, { success: true });
