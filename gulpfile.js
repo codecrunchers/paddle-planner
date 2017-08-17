@@ -52,10 +52,6 @@ gulp.task('clean', function(done) {
   });
 });
 
-gulp.task('js', function() {
-  return gulp.src( lambdaPath + '/*.js')
-    .pipe(gulp.dest(dist));
-});
 
 // Here we want to install npm packages to dist, ignoring devDependencies.
 gulp.task('npm', function() {
