@@ -1,22 +1,12 @@
 'use strict';
 
-const getForecast = require('./lib/forecast');
-const sendEmail = require('./lib/email');
+module.exports.endpoint = (event, context, callback) => {
+  const response = {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: `Hello, the current time is ${new Date().toTimeString()}.`,
+    }),
+  };
 
-const latitude = process.env.LATITUDE;
-const longitude = process.env.LONGITUDE;
-const emailRecpient = process.env.RECIPIENT;
-const emailSubject = 'Current Weather';
-
-module.exports.run = (event, context, callback) => {
-  getForecast(latitude, longitude)
-    .then((forecast) => { // eslint-disable-line arrow-body-style
-      return "WORKING" //sendEmail(emailRecpient, emailSubject, forecast);
-    })
-    .then(() => {
-      callback(null, { success: true });
-    })
-    .catch((error) => {
-      callback(error, { success: false });
-    });
+  callback(null, response);
 };

@@ -8,11 +8,11 @@ provider:
   vpc:
     subnetIds:
         - ${env:SUBNET_ID}
+
 functions:
   weather:
-    handler: handler.run
-    memorySize: 128
-    timeout: 5
+    handler: handler.endpoint
     events:
-        # 10am UTC, daily
-      - schedule: cron(0 10 * * ? *)
+      - http:
+          path: echo
+          method: get
