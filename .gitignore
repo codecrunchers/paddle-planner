@@ -2,3 +2,9 @@
 node_modules/*
 node_modules
 tf/.terraform/modules/*
+# package directories
+node_modules
+jspm_packages
+
+# Serverless directories
+.serverless

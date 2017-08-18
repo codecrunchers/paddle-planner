@@ -1,12 +1,20 @@
 'use strict';
 
-module.exports.endpoint = (event, context, callback) => {
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify({
-      message: `Hello, the current time is ${new Date().toTimeString()}.`,
-    }),
-  };
+const getTides = require('./lib/tides');
 
-  callback(null, response);
+module.exports.endpoint = (event, context, callback) => {
+    getTides().then( (tides )=> { // eslint-disable-line arrow-body-style
+        console.log(tides.entity)
+            const response = {
+                statusCode: 200,
+                body: tides.entity,
+            };
+
+        callback(null,response)
+
+    }        )
+    .catch((error) => {
+        callback(error, { success: false });
+    });
 };
+
