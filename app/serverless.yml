@@ -11,6 +11,16 @@ provider:
         - ${env:SUBNET_ID}
 
 functions:
+  tides_latlongdate:
+    handler: api/tides.latlongdate
+    memorySize: 128
+    description: Get 5 Days tides from Date
+    events:
+      - http:
+          path: tides/{lat}/{long}/{utc_timestamp}
+          method: get
+          cors: true
+
   geo_latlon:
     handler: api/geo.latlong
     memorySize: 128

@@ -2,7 +2,7 @@ const rest = require('rest');
 require('moment');
 
 
-module.exports.latlong = (event, context, callback) => {
+module.exports.latlongdate = (event, context, callback) => {
     const latTd = event.pathParameters.lat;
     const lonTd = event.pathParameters.long;
     const date = event.pathParameters.utc_timestamp;
