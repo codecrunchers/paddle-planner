@@ -1,6 +1,8 @@
 service: paddle-planner
 frameworkVersion: ">=1.1.0 <2.0.0"
 
+plugins:
+  - serverless-webpack
 provider:
   name: aws
   runtime: nodejs6.10
@@ -17,9 +19,9 @@ functions:
     description: Get 5 Days tides from Date
     events:
       - http:
-        path: tides/{lat}/{long}/{utc_timestamp}
-        method: get
-        cors: true
+          path: tides/{lat}/{long}/{utc_timestamp}
+          method: get
+          cors: true
 
   weather_latlong:
     handler: api/weather.weather
@@ -27,9 +29,9 @@ functions:
     description: Get 5 Days tides from Date
     events:
       - http:
-        path: weather/{lat}/{long}/{utc_timestamp}
-        method: get
-        cors: true
+          path: weather/{lat}/{long}/{utc_timestamp}
+          method: get
+          cors: true
 
   geo_latlon:
     handler: api/geo.latlong
@@ -37,17 +39,17 @@ functions:
     description: Get Location details via lat long
     events:
       - http:
-        path: geo/{lat}/{long}
-        method: get
-        cors: true
+          path: geo/{lat}/{long}
+          method: get
+          cors: true
   geo_city:
     handler: api/geo.city
     memorySize: 128
     description: Get Location details via City name, eg. Galway
     events:
       - http:
-        path: geo/{city}
-        method: get
-        cors: true
+          path: geo/{city}
+          method: get
+          cors: true
 
 

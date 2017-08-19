@@ -1,12 +1,12 @@
 var rest = require('rest');
 module.exports.city = (event, context, callback) => {
-                const httpResponse = {
-                    statusCode: 202,
-                    body: {'error':'Not Impl'}
-                };
-                callback(null,httpResponse);
+    const httpResponse = {
+        statusCode: 202,
+        body: {'error':'Not Impl'}
+    };
+    callback(null,httpResponse);
 
-}
+};
 
 
 module.exports.latlong = (event, context, callback) => {
@@ -19,16 +19,16 @@ module.exports.latlong = (event, context, callback) => {
     const updatedUrl = _apiUrl.replace('_PH_',latTd+'+'+lonTd); 
 
     rest(updatedUrl).then(
-            function(response) {
-                console.log('response: ', response.entity);
-                const httpResponse = {
-                    statusCode: 200,
-                    body: response.entity
-                };
-                callback(null,httpResponse);
+        function(response) {
+            console.log('response: ', response.entity);
+            const httpResponse = {
+                statusCode: 200,
+                body: response.entity
+            };
+            callback(null,httpResponse);
 
-            }
-            );
+        }
+        );
 };
 
 
