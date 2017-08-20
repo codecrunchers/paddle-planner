@@ -1,13 +1,4 @@
 var rest = require('rest');
-module.exports.city = (event, context, callback) => {
-    const httpResponse = {
-        statusCode: 202,
-        body: {'error':'Not Impl'}
-    };
-    callback(null,httpResponse);
-
-};
-
 
 module.exports.latlong = (event, context, callback) => {
     const _apiKey = '5a5f067ce860611c5ff659a845afe65c';//TODO: Remove secrets

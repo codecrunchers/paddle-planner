@@ -42,14 +42,4 @@ functions:
           path: geo/{lat}/{long}
           method: get
           cors: true
-  geo_city:
-    handler: api/geo.city
-    memorySize: 128
-    description: Get Location details via City name, eg. Galway
-    events:
-      - http:
-          path: geo/{city}
-          method: get
-          cors: true
-
 
