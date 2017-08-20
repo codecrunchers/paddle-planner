@@ -1,90 +1,48 @@
 'use strict';
 var S3Plugin = require('webpack-s3-plugin'),
-    HtmlWebpackPlugin = require('html-webpack-plugin');
-const webpack = require('webpack'),
-      glob = require('glob'), path = require("path");
+    HtmlWebpackPlugin = require('html-webpack-plugin'),
+    webpack = require('webpack'),
+    glob = require('glob'),
+    path = require('path');
+
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 let config = {
-
-    entry: {
-        paddle_planner: __dirname + '/web/js/index'
-    },
-/*    module: {
-        loaders: [
-            // Javascript: js, jsx
-        {
-
-            test: /\.jsx?$/,
-
-            loader: 'babel-loader'
-
-        },
-
-        // CSS: scss, css
-
-        {
-
-            test: /\.s?css$/,
-
-            loaders: ['style', 'css', 'sass', 'postcss-loader']
-
-        },
-
-        // SVGs: svg, svg?something
-
-        {
-
-            test: /\.svg(\?.*$|$)/,
-
-            loader: 'file-loader?name=/img/[name].[ext]'
-
-        },
-
-        // Images: png, gif, jpg, jpeg
-
-        {
-
-            test: /\.(png|gif|jpe?g)$/,
-
-            loader: 'file?name=/img/[name].[ext]'
-
-        },
-
-        // HTML: htm, html
-
-        {
-
-            test: /\.html?$/,
-
-            loader: "file?name=[name].[ext]"
-
-        },
-
-        // Font files: eot, ttf, woff, woff2
-
-        {
-
-            test: /\.(eot|ttf|woff2?)(\?.*$|$)/,
-            loader: 'file?name=/fonts/[name].[ext]'
-
-        }
-
-        ]
-
-    },
-    */
-
+    entry: [
+         './web/js/index.js',
+         './web/css/index.css',
+    ],
     output: {
         path: __dirname + "/dist/",
-        filename: 'bundle--[name].js'
+        filename: 'bundle--[name].js',
     },
+    module: {
+        loaders: [
+            {
+                test: /\.jsx?$/,
+                exclude: /node_modules/,
+                loader: 'babel-loader'
+            },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract({ fallback: "style-loader", use: "css-loader" })
+//                loader: ExtractTextPlugin.extract("style-loader", "css-loader", 'less-loader')
+            },
+            {
 
+                test: /\.(png|gif|jpe?g)$/,
+                loader: 'file?name=/img/[name].[ext]'
+            }
+        ]
+    },
     plugins: [
+        new ExtractTextPlugin("[name].css"),
         new HtmlWebpackPlugin({
             hash: true,
             filename: 'index.html',
             template: __dirname + '/web/index.html',
+            title: "Paddle Planner"
         }),
         new S3Plugin({
             directory: "dist",
