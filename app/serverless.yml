@@ -8,9 +8,9 @@ provider:
   runtime: nodejs6.10
   region: "us-west-2"
   stage: "dev"
-  vpc:
-    subnetIds:
-      - ${env:SUBNET_ID}
+#  vpc:
+#    subnetIds:
+#      - ${env:SUBNET_ID}
 
 functions:
   tides_latlongdate:
@@ -26,7 +26,7 @@ functions:
   weather_latlong:
     handler: api/weather.weather
     memorySize: 128
-    description: Get 5 Days tides from Date
+    description: Get 5 Days Weather from Date for lat & long
     events:
       - http:
           path: weather/{lat}/{long}/{utc_timestamp}
