@@ -3,8 +3,8 @@
 
 terraform {
   backend "s3" {
-    region = "eu-west-1"
-    bucket = "paddle-planner.com"
+    region = "us-west-2"
+    bucket = "paddle-planner-config"
     key    = "statefiles/prod.tfstate"
     acl    = "private"
   }
