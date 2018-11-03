@@ -13,6 +13,7 @@
     "http-errors": "~1.6.2",
     "mongoose": "^5.3.9",
     "morgan": "~1.9.0",
+    "passport": "^0.4.0",
     "pm2": "^3.2.2",
     "pug": "2.0.0-beta11"
   },

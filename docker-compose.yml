@@ -4,19 +4,26 @@ version: '3'
 services:
   web:
     build: .
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
     ports: 
       - "8080:3000"
     links: 
       - mongo
     depends_on: 
-      - mongo
+      - mongo-express
 
   mongo:
-    image: mongo
+    build: images/mongo
     restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - mongo-data:/data/db
+        #     - "./databaseInit/mongo-paddle-planner/:/docker-entrypoint-initdb.d/"
 
   mongo-express:
     image: mongo-express
@@ -28,4 +35,8 @@ services:
       ME_CONFIG_MONGODB_ADMINPASSWORD: example
     depends_on: 
       - mongo
+
+
+volumes:
+  mongo-data:
 
