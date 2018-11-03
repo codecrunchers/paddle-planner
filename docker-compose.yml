@@ -6,8 +6,8 @@ services:
     build: .
     restart: always
     environment:
-      APP_MONGO_USER=${APP_MONGO_USER}
-      APP_MONGO_PASS=${APP_MONGO_PASS}
+      APP_MONGO_USER: ${APP_MONGO_USER}
+      APP_MONGO_PASS: ${APP_MONGO_PASS}
     ports: 
       - "8080:3000"
     links: 

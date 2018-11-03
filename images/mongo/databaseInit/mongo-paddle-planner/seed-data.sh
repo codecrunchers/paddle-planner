@@ -2,18 +2,18 @@
 
 echo 'Creating application user and db'
 
-mongo paddle-planner \
+mongo ${APP_MONGO_DB} \
         --host localhost \
-        --port 27017 \
-        -u root \
-        -p example \
+        --port ${MONGO_PORT} \
+        -u ${MONGO_ROOT_USER} \
+        -p ${MONGO_ROOT_PASS} \
         --authenticationDatabase admin \
-        --eval "db.createUser({user: 'root', pwd: 'example', roles:[{role:'dbOwner', db: 'paddle-planner'}]});" && \
-           mongo paddle-planner \
+        --eval "db.createUser({user: '${APP_MONGO_USER}', pwd: '${APP_MONGO_PASS}', roles:[{role:'dbOwner', db: '${APP_MONGO_DB}'}]);" && \
+          mongo ${APP_MONGO_DB} \
             --host localhost \
             --port 27017 \
             -u root \
             -p example \
             --authenticationDatabase paddle-planner \
-            --eval "db.users.insertOne({username: 'alan', password: 'pass'})"
+            --eval "db.users.insertOne({username: '${APP_DEFAULT_USER}', password: '${APP_DEFAULT_PASS}')"
 

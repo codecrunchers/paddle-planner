@@ -14,9 +14,8 @@ const healthRouter  = require('./routes/health');
 const tripsRouter  = require('./routes/trips');
 
 
-const mongoUsername=process.env.MONGO_INITDB_ROOT_USERNAME;
-console.log("Username" + mongoUsername);
-const mongoPassword=process.env.MONGO_INITDB_ROOT_PASSWORD;
+const mongoUsername=process.env.APP_MONGO_USER;
+const mongoPassword=process.env.APP_MONGO_PASS;
 
 var User = require('./models/user');
 
@@ -51,10 +50,7 @@ app.post("/login", (req, res) => {
   });     
 });
 
-
-
 // catch 404 and forward to error handler
-
 app.use(function(req, res, next) {
   next(createError(404));
 });
