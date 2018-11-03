@@ -6,8 +6,8 @@ services:
     build: .
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      APP_MONGO_USER=${APP_MONGO_USER}
+      APP_MONGO_PASS=${APP_MONGO_PASS}
     ports: 
       - "8080:3000"
     links: 
@@ -19,11 +19,10 @@ services:
     build: images/mongo
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: example
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_ROOT_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_ROOT_PASSWORD}
     volumes:
       - mongo-data:/data/db
-        #     - "./databaseInit/mongo-paddle-planner/:/docker-entrypoint-initdb.d/"
 
   mongo-express:
     image: mongo-express
@@ -31,8 +30,8 @@ services:
     ports:
       - 8081:8081
     environment:
-      ME_CONFIG_MONGODB_ADMINUSERNAME: root
-      ME_CONFIG_MONGODB_ADMINPASSWORD: example
+      ME_CONFIG_MONGODB_ADMINUSERNAME: ${MONGO_ROOT_USERNAME}
+      ME_CONFIG_MONGODB_ADMINPASSWORD: ${MONGO_ROOT_PASSWORD}
     depends_on: 
       - mongo
 

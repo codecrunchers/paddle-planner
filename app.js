@@ -11,6 +11,8 @@ var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
 var usersRouter = require('./routes/users');
 const healthRouter  = require('./routes/health');
+const tripsRouter  = require('./routes/trips');
+
 
 const mongoUsername=process.env.MONGO_INITDB_ROOT_USERNAME;
 console.log("Username" + mongoUsername);
@@ -37,9 +39,18 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/health', healthRouter);
 app.use('/login', loginRouter);
+app.use('/trips', tripsRouter);
+
 
 app.get('/loginSuccess', (req, res) => res.send("Welcome "+req.query.username+"!!"));
 app.get('/loginFail', (req, res) => res.send("Login Failure"));
+
+app.post("/login", (req, res) => {
+  passport.authenticate("local")(req, res, function(){
+    res.redirect("/trips");       
+  });     
+});
+
 
 
 // catch 404 and forward to error handler
