@@ -1,3 +1,4 @@
+var http = require('http')
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
@@ -5,7 +6,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var mongoose = require('mongoose');
 const passport = require('passport');
-
+const LocalStrategy = require('passport-local').Strategy;
 
 var indexRouter = require('./routes/index');
 var loginRouter = require('./routes/login');
@@ -13,13 +14,10 @@ var usersRouter = require('./routes/users');
 const healthRouter  = require('./routes/health');
 const tripsRouter  = require('./routes/trips');
 
-
-const mongoUsername=process.env.APP_MONGO_USER;
-const mongoPassword=process.env.APP_MONGO_PASS;
-
-var User = require('./models/user');
-
+var UserModel = require('./models/userModel');
 var app = express();
+
+
 app.use(passport.initialize());
 app.use(passport.session());
 
@@ -28,6 +26,7 @@ app.use(passport.session());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
+app.set('port', process.env.PORT || 3000)
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,15 +39,42 @@ app.use('/health', healthRouter);
 app.use('/login', loginRouter);
 app.use('/trips', tripsRouter);
 
+app.on('ready', function() { 
+    app.listen(3000, function(){ 
+        console.log("app is ready"); 
+    }); 
+}); 
 
-app.get('/loginSuccess', (req, res) => res.send("Welcome "+req.query.username+"!!"));
-app.get('/loginFail', (req, res) => res.send("Login Failure"));
 
-app.post("/login", (req, res) => {
-  passport.authenticate("local")(req, res, function(){
-    res.redirect("/trips");       
-  });     
-});
+passport.use(new LocalStrategy(
+  function(username, password, done) {
+
+      UserModel.findOne({
+        username: username
+      }, function(err, user) {
+        if (err) {
+          console.log(err);
+          return done(err);
+        }
+
+        if (!user) {
+          return done(null, false);
+        }
+
+        if (user.password != password) {
+          return done(null, false);
+        }
+        return done(null, user);
+      });
+  }
+));
+
+
+app.post('/login',
+  passport.authenticate('local', { failureRedirect: '/login' }),
+  function(req, res) {
+    res.redirect('/trips?username='+req.user.username);
+  });
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -78,5 +104,12 @@ passport.deserializeUser(function(id, cb) {
 });
 
 //Initialise Data Store
+const dbusername=process.env.APP_MONGO_USER;
+const dbpassword=process.env.APP_MONGO_PASS;
+const db = process.env.APP_MONGO_DB;
+mongoose.connect('mongodb://'+dbusername+':'+dbpassword+'@mongo/'+db, { useNewUrlParser: true });
+mongoose.connection.once('open', function() { 
+    app.emit('ready'); 
+});
 
 module.exports = app;

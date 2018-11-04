@@ -8,8 +8,10 @@ services:
     environment:
       APP_MONGO_USER: ${APP_MONGO_USER}
       APP_MONGO_PASS: ${APP_MONGO_PASS}
+      APP_MONGO_DB: ${APP_MONGO_DB}
+      WEB_PORT: ${WEB_PORT}
     ports: 
-      - "8080:3000"
+      - "8080:${WEB_PORT}"
     links: 
       - mongo
     depends_on: 
