@@ -15,7 +15,7 @@ const fetch  = async (request) => {
     const latTd = request.params.latitude;
     const lonTd = request.params.longtitude;
     const date = request.params.utc_timestamp;
-    const days = parseInt(request.params.days)*5184000;
+    const days = parseInt(request.params.days)*60*60*24;
     const _apiUrl= `https://www.worldtides.info/api?extremes&_PH_&datum=LAT&start=_start_&key=d7f67d32-af18-4930-833e-ff638fe826bf&length=${days}`;
     const updatedUrl = _apiUrl.replace('_PH_','lon='+lonTd+'&lat='+latTd);
     const finalUrl = updatedUrl.replace('_start_',date);
