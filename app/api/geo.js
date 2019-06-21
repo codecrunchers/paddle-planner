@@ -12,12 +12,22 @@ exports.getGeo = async (request, reply)=> {
 
 const fetch  = async (request) => {
   try   {
-    const latTd = request.params.latitude;
-    const lonTd = request.params.longtitude;
     const _apiKey = 'e93c7ebdb0de41fb903db410fa4bbfbd';//TODO: Remove secrets
     const _apiUrl = `http://api.opencagedata.com/geocode/v1/json?q=_PH_&key=${_apiKey}`;
-    const updatedUrl = _apiUrl.replace('_PH_',latTd+'+'+lonTd);
-    logger.log({level:'debug','message': "final url: " + updatedUrl});
+    var updatedUrl = "";
+
+    console.debug("params",request.params);
+
+    const latTd = request.params.latitude;
+    const lonTd = request.params.longtitude;
+
+    if(latTd && lonTd){
+      updatedUrl = _apiUrl.replace('_PH_',encodeURI(latTd+'+'+lonTd));
+    }else{
+      const geoloc = request.params.address
+      updatedUrl = _apiUrl.replace('_PH_',encodeURI(geoloc));    
+    }
+    logger.log({level:'info','message': "final url: " + updatedUrl});
 
     const geoResponse = await rest(updatedUrl).then(
       function(response) {

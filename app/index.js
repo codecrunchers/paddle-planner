@@ -61,6 +61,33 @@ fastify.route({
 // Geo
 fastify.route({
   method: 'GET',
+  url: '/geo/:address',
+  schema: {
+    querystring: {
+      address: { type: 'string' },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          results: { type: 'string' }
+        }
+      }
+    }
+  },
+  // this function is executed for every request before the handler is executed
+  preHandler: async (request, reply) => {
+    logger.log({level:"info", message: request.params });
+  },
+  handler: geo.getGeo,  
+})
+
+
+
+
+// 
+fastify.route({
+  method: 'GET',
   url: '/geo/:latitude/:longtitude',
   schema: {
     querystring: {
