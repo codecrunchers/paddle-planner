@@ -1,10 +1,37 @@
 const tides = require("./api/tides");
 const geo = require("./api/geo");
+const weather = require("./api/weather");
+
 
 const logger = require("./logger/logger").logger;
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
+
+
+fastify.route({
+  method: 'GET',
+  url: '/weather/:latitude/:longtitude/:utc_timestamp',
+  schema: {
+    querystring: {
+      latitude: { type: 'string' },
+      longtitude: { type: 'string' }     
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          results: { type: 'string' }
+        }
+      }
+    }
+  },
+  // this function is executed for every request before the handler is executed
+  preHandler: async (request, reply) => {
+    logger.log({level:"info", message: request.params });
+  },
+  handler: weather.getWeather,  
+})
 
 
 fastify.route({
