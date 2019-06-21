@@ -15,10 +15,11 @@ const fetch  = async (request) => {
     const latTd = request.params.latitude;
     const lonTd = request.params.longtitude;
     const date = request.params.utc_timestamp;
-    const _apiUrl= 'https://www.worldtides.info/api?extremes&_PH_&datum=lat&start=_start_&key=d7f67d32-af18-4930-833e-ff638fe826bf';
+    const days = parseInt(request.params.days)*5184000;
+    const _apiUrl= `https://www.worldtides.info/api?extremes&_PH_&datum=LAT&start=_start_&key=d7f67d32-af18-4930-833e-ff638fe826bf&length=${days}`;
     const updatedUrl = _apiUrl.replace('_PH_','lon='+lonTd+'&lat='+latTd);
-    console.log('Tide Search Time %s', date);
-    const finalUrl = updatedUrl.replace('_start_',parseInt(parseInt(date)));
+    const finalUrl = updatedUrl.replace('_start_',date);
+    logger.log({level:'info','message': "final url: " + finalUrl});
     const tidesResponse  = await rest(finalUrl).then(
       function(response) {
         logger.log({level:'info','message': response.status});

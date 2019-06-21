@@ -7,14 +7,12 @@ const fastify = require('fastify')({ logger: true })
 
 fastify.route({
   method: 'GET',
-  url: '/tides/:latitude/:longtitude/:utc_timestamp',
+  url: '/tides/:latitude/:longtitude/:utc_timestamp/:days',
   schema: {
-    // request needs to have a querystring with a `name` parameter
     querystring: {
       latitude: { type: 'string' },
       longtitude: { type: 'string' }     
     },
-    // the response needs to be an object with an `hello` property of type 'string'
     response: {
       200: {
         type: 'object',
