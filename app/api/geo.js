@@ -1,27 +1,35 @@
-var rest = require('rest');
+const logger = require("../logger/logger").logger;
+const rest = require('rest');
+require('moment');
 
-module.exports.latlong = (event, context, callback) => {
-    const _apiKey = '5a5f067ce860611c5ff659a845afe65c';//TODO: Remove secrets
-    const _apiUrl = 'http://api.opencagedata.com/geocode/v1/json?q=_PH_&key='+_apiKey;
-    const latTd = event.pathParameters.lat;
-    const lonTd = event.pathParameters.long;
-    console.log('FBC Call GEO Lat=%s, Long=%s',latTd,lonTd);
 
+exports.getGeo = async (request, reply)=> {
+  const response =  await fetch(request);
+  logger.log({level:"debug", message: response });
+  return response;
+
+}
+
+const fetch  = async (request) => {
+  try   {
+    const latTd = request.params.latitude;
+    const lonTd = request.params.longtitude;
+    const _apiKey = 'e93c7ebdb0de41fb903db410fa4bbfbd';//TODO: Remove secrets
+    const _apiUrl = `http://api.opencagedata.com/geocode/v1/json?q=_PH_&key=${_apiKey}`;
     const updatedUrl = _apiUrl.replace('_PH_',latTd+'+'+lonTd);
+    logger.log({level:'debug','message': "final url: " + updatedUrl});
 
-    rest(updatedUrl).then(
-        function(response) {
-            console.log('response: ', response.entity);
-            const httpResponse = {
-                statusCode: 200,
-                body: response.entity
-            };
-            callback(null,httpResponse);
-
-        }
-        );
-};
-
+    const geoResponse = await rest(updatedUrl).then(
+      function(response) {
+        logger.log({level:'info','message': response.status});
+        return response.entity;
+      });  
+    logger.log({level:'debug' ,'message': "Geo:" + geoResponse});
+    return geoResponse;
+  }catch(err){
+    throw err
+  }
+}
 
 
 

@@ -1,4 +1,6 @@
 const tides = require("./api/tides");
+const geo = require("./api/geo");
+
 const logger = require("./logger/logger").logger;
 
 // Require the framework and instantiate it
@@ -28,6 +30,33 @@ fastify.route({
   },
   handler: tides.getTides,  
 })
+
+// Geo
+fastify.route({
+  method: 'GET',
+  url: '/geo/:latitude/:longtitude',
+  schema: {
+    querystring: {
+      latitude: { type: 'string' },
+      longtitude: { type: 'string' }     
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          results: { type: 'string' }
+        }
+      }
+    }
+  },
+  // this function is executed for every request before the handler is executed
+  preHandler: async (request, reply) => {
+    logger.log({level:"info", message: request.params });
+  },
+  handler: geo.getGeo,  
+})
+
+
 
 // Declare an API route
 fastify.get('/', async (request, reply) => {
