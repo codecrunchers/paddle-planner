@@ -7,7 +7,7 @@ const fastify = require('fastify')({ logger: true })
 
 fastify.route({
   method: 'GET',
-  url: '/tides/:latitude/:longtitude',
+  url: '/tides/:latitude/:longtitude/:utc_timestamp',
   schema: {
     // request needs to have a querystring with a `name` parameter
     querystring: {
@@ -27,11 +27,8 @@ fastify.route({
   // this function is executed for every request before the handler is executed
   preHandler: async (request, reply) => {
     logger.log({level:"info", message: request.params });
-    // E.g. check authentication
   },
-  handler: async (request, reply) => {
-    return {};//tides.getTides(request);
-  }
+  handler: tides.getTides,  
 })
 
 // Declare an API route
