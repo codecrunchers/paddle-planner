@@ -1,14 +1,21 @@
+const logger = require("../logger/logger").logger;
 const rest = require('rest');
 require('moment');
 
 
-module.exports.latlongdate = (event, context, callback) => {
-    const latTd = event.pathParameters.lat;
-    const lonTd = event.pathParameters.long;
-    const date = event.pathParameters.utc_timestamp;
+exports.getTides = async (request, reply)=> {
+  logger.log({level:'info', message: "Params: " + request.params});
+  return {}
+  //return await fetch(request);
+}
+
+const fetch  = (request) => {
+    const latTd = request.latitude;
+    const lonTd = request.longtitude;
+    const date = request.utc_timestamp;
     const _apiUrl= 'https://www.worldtides.info/api?extremes&_PH_&datum=lat&start=_start_&key=d7f67d32-af18-4930-833e-ff638fe826bf';
     const updatedUrl = _apiUrl.replace('_PH_','lon='+lonTd+'&lat='+latTd);
-    console.log('Tide Search Time %s',date);
+    console.log('Tide Search Time %s', date);
     const finalUrl = updatedUrl.replace('_start_',parseInt(parseInt(date)));
     rest(finalUrl).then(
         function(response) {
