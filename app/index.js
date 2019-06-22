@@ -1,9 +1,10 @@
 const tides = require("./api/tides");
 const geo = require("./api/geo");
 const weather = require("./api/weather");
-
-
+const buoys = require("./api/buoys");
+const buoySvc = require("./services/buoydata");
 const logger = require("./logger/logger").logger;
+const BUOYDATA_ENABLED = false;
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
@@ -57,6 +58,35 @@ fastify.route({
   },
   handler: tides.getTides,  
 })
+
+
+//buoy
+// Geo
+fastify.route({
+  method: 'GET',
+  url: '/buoys/:buoyid',
+  schema: {
+    querystring: {
+      buoyid: { type: 'string' },
+    },
+    response: {
+      200: {
+        type: 'object',
+        properties: {
+          results: { type: 'string' }
+        }
+      }
+    }
+  },
+  // this function is executed for every request before the handler is executed
+  preHandler: async (request, reply) => {
+    logger.log({level:"info", message: request.params });
+  },
+  handler: buoys.getBuoy,
+})
+
+
+
 
 // Geo
 fastify.route({
@@ -129,6 +159,7 @@ const start = async () => {
   
   logger.log({ level: 'info', message: 'Starting'});
   try {
+    if(BUOYDATA_ENABLED) await buoySvc.start();
     await fastify.listen(3000)
     fastify.log.info(`server listening on ${fastify.server.address().port}`)
   } catch (err) {
