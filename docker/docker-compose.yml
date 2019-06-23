@@ -1,19 +1,25 @@
 version: '3'
 
 services:
-  api: # Node.js App
+  paddle-planner-api: # Node.js App
     container_name: paddle-planner-api
     build: ../app
     ports:
-     - "3000:3000" # Expose API port
+     - "3000:${PORT}" # Expose API port
      - "9229:9229" # Expose Node process debug port (disable in production)
     environment: # Set ENV vars
      - NODE_ENV=local
      - ES_HOST=elasticsearch
      - PORT=3000
+     - JSON_LOG_FILE=/tmp/paddle-planner-json.log
+     - BUOY_LOG_FILE=/tmp/paddle-planner-buoys.log
+    links: 
+     - elasticsearch
+    depends_on:
+     - elasticsearch
 
   elasticsearch: # Elasticsearch Instance
-    container_name: gs-search
+    container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
     volumes: # Persist ES data in seperate "esdata" volume
       - esdata:/usr/share/elasticsearch/data
@@ -24,7 +30,22 @@ services:
     ports: # Expose Elasticsearch ports
       - "9300:9300"
       - "9200:9200"
+  
+  filebeat: 
+    container_name: filebeat
+    image:  docker.elastic.co/beats/filebeat:7.1.1
+    volumes: # Persist filebeat data in seperate "filebeat" volume
+      - "${PWD}/config/filebeat/filebeat.docker.yml:/usr/share/filebeat/filebeat.yml:ro"
+      - /var/lib/docker/containers:/var/lib/docker/containers:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - output.elasticsearch.hosts:elasticsearch:9200"
+    links:
+      - elasticsearch
 
+
+
+    
 volumes: # Define seperate volume for Elasticsearch data
   esdata:
 

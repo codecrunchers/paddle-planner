@@ -6,9 +6,9 @@ const buoySvc = require("./services/buoydata");
 const logger = require("./logger/logger").logger;
 const elastic =  require("./services/elastic");
 
-const RESET_INDEX = false;
-const SERVER_PORT = 3001;
-const BUOYDATA_ENABLED = false;
+const RESET_INDEX = process.env.RESET_INDEX || false;
+const SERVER_PORT = process.env.PORT || 3000;
+const BUOYDATA_ENABLED = process.env.BUOYDATA_ENABLED || false;
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
@@ -163,11 +163,15 @@ const start = async () => {
   
   logger.log({ level: 'info', message: 'Starting'});
   try {
-    if(BUOYDATA_ENABLED) 
-      await buoySvc.start();
-    if(RESET_INDEX) 
-      await elastic.resetIndex();
+
     await elastic.checkConnection();
+    
+    if(RESET_INDEX)
+      await elastic.resetIndex();
+
+    if(BUOYDATA_ENABLED) 
+      await buoySvc.start();    
+
     await fastify.listen(SERVER_PORT);
     fastify.log.info(`server listening on ${fastify.server.address().port}`);
     //test

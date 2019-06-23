@@ -2,10 +2,16 @@ const logger = require("../logger/logger").logger;
 const rest = require('rest');
 require('moment');
 
+const LOG_DATA = true;
+
+
 
 exports.getTides = async (request, reply)=> {
   const response =  await fetch(request);
   logger.log({level:"debug", message: response });
+  if(LOG_DATA){
+  }
+
   return response;
   
 }

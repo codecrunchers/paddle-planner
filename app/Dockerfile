@@ -13,5 +13,6 @@ RUN npm install
 # Copy sourcecode
 COPY . .
 
+
 # Start app
 CMD [ "npm", "start" ]

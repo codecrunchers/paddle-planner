@@ -31,7 +31,7 @@ async function putWeatherStationMapping () {
           title: { type: 'keyword' },
           author: { type: 'keyword' },
           location: { type: 'integer' },
-          text: { type: 'text' },
+          text: { type: 'object' },
           realtime: { type: 'boolean' }
         }
   
