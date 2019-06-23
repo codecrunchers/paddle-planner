@@ -10,13 +10,17 @@ services:
     environment: # Set ENV vars
      - NODE_ENV=local
      - ES_HOST=elasticsearch
+     - ES_PORT=9200
      - PORT=3000
      - JSON_LOG_FILE=/tmp/paddle-planner-json.log
      - BUOY_LOG_FILE=/tmp/paddle-planner-buoys.log
+     - LOG_DATA
     links: 
      - elasticsearch
     depends_on:
      - elasticsearch
+    restart: always
+
 
   elasticsearch: # Elasticsearch Instance
     container_name: elasticsearch
@@ -30,6 +34,9 @@ services:
     ports: # Expose Elasticsearch ports
       - "9300:9300"
       - "9200:9200"
+    expose:
+      - 9300
+      - 9200
   
   filebeat: 
     container_name: filebeat

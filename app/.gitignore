@@ -9,3 +9,6 @@ jspm_packages
 dist/
 *.swp
 *.log
+*.swp
+**/*.swp
+*swp

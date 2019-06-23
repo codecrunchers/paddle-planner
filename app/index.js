@@ -177,6 +177,7 @@ const start = async () => {
     //test
   } catch (err) {
     fastify.log.error(err);
+    logger.log( {level: "error", message: `Connection Failed, Retrying...${err}`} );
     process.exit(1);
   }
 }
