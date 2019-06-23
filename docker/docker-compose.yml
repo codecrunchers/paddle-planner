@@ -5,7 +5,7 @@ services:
     container_name: paddle-planner-api
     build: ../app
     ports:
-     - "3000:${PORT}" # Expose API port
+     - "3000:${API_PORT:-3000}" # Expose API port
      - "9229:9229" # Expose Node process debug port (disable in production)
     environment: # Set ENV vars
      - NODE_ENV=local

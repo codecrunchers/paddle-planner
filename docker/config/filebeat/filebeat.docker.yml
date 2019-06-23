@@ -3,6 +3,8 @@ filebeat.config:
     path: ${path.config}/modules.d/*.yml
     reload.enabled: false
 
+setup.kibana:
+  host: "kibana:5601"    
 
 filebeat.inputs:
 

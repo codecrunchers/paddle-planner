@@ -172,8 +172,14 @@ const start = async () => {
     if(BUOYDATA_ENABLED) 
       await buoySvc.start();    
 
-    await fastify.listen(SERVER_PORT);
-    fastify.log.info(`server listening on ${fastify.server.address().port}`);
+    await fastify.listen(SERVER_PORT, '0.0.0.0', function (err, address) {
+      if (err) {
+        throw err;
+      }else {
+        fastify.log.info(`server listening on ${address}`);
+      }
+    });
+
     //test
   } catch (err) {
     fastify.log.error(err);
