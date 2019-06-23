@@ -13,11 +13,15 @@ filebeat.inputs:
   json.add_error_key: true
   json.message_key: log
   paths:
-    - /tmp/paddle-planner-json.log
+    - ${LOG_DIR}/${JSON_LOG_FILE}
 
 - type: log      
+  # Identifies the last two columns as the end of an entry and then prepends the previous lines to it
+  multiline.pattern: ',\d+,[^\",]+$'
+  multiline.negate: true
+  multiline.match: before
   paths:   
-    - /tmp/paddle-planner-buoys.log
+    - ${LOG_DIR}/${BUOY_LOG_FILE}
 
 processors:
 - add_cloud_metadata: ~

@@ -8,7 +8,7 @@ const elastic =  require("./services/elastic");
 
 const RESET_INDEX = process.env.RESET_INDEX || false;
 const SERVER_PORT = process.env.PORT || 3000;
-const BUOYDATA_ENABLED = process.env.BUOYDATA_ENABLED || false;
+const AUTO_BUOYDATA_ENABLED = process.env.AUTO_BUOYDATA_ENABLED || false;
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
@@ -169,7 +169,7 @@ const start = async () => {
     if(RESET_INDEX)
       await elastic.resetIndex();
 
-    if(BUOYDATA_ENABLED) 
+    if(AUTO_BUOYDATA_ENABLED) 
       await buoySvc.start();    
 
     await fastify.listen(SERVER_PORT, '0.0.0.0', function (err, address) {

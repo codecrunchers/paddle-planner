@@ -5,7 +5,7 @@ const path = require('path');
 
 const env = process.env.NODE_ENV || 'development';
 const logDir = process.env.LOG_DIR || '/tmp';
-const logFile = process.env.BUOY_LOG || 'paddle-planner-buoys.log';
+const logFile = process.env.BUOY_LOG_FILE || 'paddle-planner-buoys.log.csv';
 
 
 // Create the log directory if it does not exist
@@ -22,6 +22,7 @@ const logger = winston.createLogger({
 });
 
 const filename = path.join(logDir, logFile);
+logger.log({level: "info", message: `Filename for buoy logs: ${filename}`});
 
 const buoyLogger = winston.createLogger({
   // change level if in dev environment versus production
