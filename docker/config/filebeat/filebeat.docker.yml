@@ -1,7 +1,12 @@
 filebeat.config:
   modules:
     path: ${path.config}/modules.d/*.yml
-    reload.enabled: false
+    reload.enabled: true
+
+filebeat.modules:    
+  - module: elasticsearch
+    server:
+     enabled: true
 
 setup.kibana:
   host: "kibana:5601"    
