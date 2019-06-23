@@ -16,7 +16,8 @@
     "moment": "^2.18.0",
     "rest": "latest",
     "winston": "latest",
-    "node-cron": "latest"
+    "node-cron": "latest",
+    "csvtojson": "latest"
   },
   "devDependencies": {
     "eslint": "^4.4.1",

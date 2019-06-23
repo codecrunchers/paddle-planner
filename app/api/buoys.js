@@ -1,14 +1,20 @@
 const logger = require("../logger/logger").logger;
 const buoyLogger = require("../logger/logger").buoyLogger;
 const rest = require('rest');
-require('moment');
+const csv=require('csvtojson')
 
 
 const LOG_DATA = process.env.LOG_DATA || false
 
 const logData  = async (data) => {
-  if(LOG_DATA)
-    buoyLogger.log({level:"info", message: data });
+  if(LOG_DATA){
+    csv()
+      .fromString(data)
+      .then((jsonObj)=>{
+        console.log(jsonObj);
+        buoyLogger.log({level:"info", message: `${jsonObj}`});
+      })  
+  }
 }
 
 exports.getBuoy = async (request, reply)=> {
