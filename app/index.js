@@ -187,5 +187,15 @@ const start = async () => {
     process.exit(1);
   }
 }
+
+
+const listEnv = () => {
+  if(process.env.develmode)
+  for(ev in process.env){
+    logger.log({level:"warn", message: `${ev} == ${process.env[ev]}`});
+  }
+}
+
+listEnv();
 start()
 

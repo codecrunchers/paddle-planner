@@ -4,22 +4,26 @@ const rest = require('rest');
 const csv=require('csvtojson')
 
 
+
 const LOG_DATA = process.env.LOG_DATA || false
 
 const logData  = async (data) => {
-  if(LOG_DATA){
-    csv()
-      .fromString(data)
-      .then((jsonObj)=>{
-        console.log(jsonObj);
-        buoyLogger.log({level:"info", message: `${jsonObj}`});
-      })  
+  if(LOG_DATA)  {
+    csv({output:"json"})
+      .fromString(data).then( (json) => {
+      buoyLogger.log({level:"info", message: json});
+    });
   }
 }
 
 exports.getBuoy = async (request, reply)=> {
-  const response =  await fetch(request);
-  logger.log({level:"debug", message: response });
+  let response;
+  if(process.env.DEVEL){
+    response = "HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A";
+  }
+  else{    
+    response =  await fetch(request);
+  }
   logData(response);
   return response;
 

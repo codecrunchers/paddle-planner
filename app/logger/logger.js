@@ -1,4 +1,5 @@
 'use strict';
+const csv=require('csvtojson')
 const winston  = require('winston');
 const fs = require('fs');
 const path = require('path');
@@ -22,23 +23,18 @@ const logger = winston.createLogger({
 });
 
 const filename = path.join(logDir, logFile);
+
+
 logger.log({level: "info", message: `Filename for buoy logs: ${filename}`});
 
 const buoyLogger = winston.createLogger({
-  // change level if in dev environment versus production
-  level: 'info',
-  format: winston.format.combine(
-    winston.format.timestamp({
-      format: 'YYYY-MM-DD HH:mm:ss'
-    }),
-    winston.format.printf(info => `${info.timestamp} ${info.level}: ${info.message}`)
-  ),
   transports: [
-    new winston.transports.File({ filename }),
+    new winston.transports.File({ filename}),
     new winston.transports.Console()
 
   ]
 });
+
 
 module.exports = { logger, buoyLogger} 
 

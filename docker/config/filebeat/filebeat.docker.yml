@@ -11,20 +11,24 @@ filebeat.modules:
 setup.kibana:
   host: "kibana:5601"    
 
+
+setup.template.name: "paddle-planner"
+setup.template.pattern: "paddle-planner-*"
+setup.template.enabled: false
+setup.template.overwrite: true
+
 filebeat.inputs:
 
 - type: log
   json.keys_under_root: true
   json.add_error_key: true
-  json.message_key: log
   paths:
     - ${LOG_DIR}/${JSON_LOG_FILE}
 
 - type: log      
   # Identifies the last two columns as the end of an entry and then prepends the previous lines to it
-  multiline.pattern: ',\d+,[^\",]+$'
-  multiline.negate: true
-  multiline.match: before
+  json.keys_under_root: true
+  json.add_error_key: true
   paths:   
     - ${LOG_DIR}/${BUOY_LOG_FILE}
 
