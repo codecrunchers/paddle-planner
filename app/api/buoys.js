@@ -7,25 +7,32 @@ const csv=require('csvtojson')
 
 const LOG_DATA = process.env.LOG_DATA || false
 
-const logData  = async (data) => {
+const logData  = async (fullBuoyReport) => {
   if(LOG_DATA)  {
-    csv({output:"json"})
-      .fromString(data).then( (json) => {
-      buoyLogger.log({level:"info", message: json});
-    });
+    for(hourlyReport in fullBuoyReport){
+      csv({output:"json"})
+        .fromString(hourlyReport).then( (json) => {
+          buoyLogger.log({level:"info", message: json});
+        })
+    }
   }
 }
 
 exports.getBuoy = async (request, reply)=> {
   let response;
+  logger.log({level: "info", message: `DEVEL >>>  ${process.env.DEVEL}`});
+
   if(process.env.DEVEL){
-    response = "HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A";
+    logger.log({level: "info", message: `DEBUG MODE}`});
+    response = `HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A`;
   }
   else{    
+    logger.log({level: "info", message: `LIVE MODE`});
     response =  await fetch(request);
   }
   logData(response);
   return response;
+
 
 }
 

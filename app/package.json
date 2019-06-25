@@ -5,24 +5,30 @@
   "author": "alan@codecrunchers.ie",
   "license": "ISC",
   "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "develmode": "nodemon index.js",
     "start": "node index.js"
   },
   "dependencies": {
+    "csvtojson": "latest",
     "elasticsearch": "latest",
     "fastify": "^2.2.0",
     "moment": "^2.18.0",
-    "rest": "latest",
-    "winston": "latest",
     "node-cron": "latest",
-    "csvtojson": "latest"
+    "rest": "latest",
+    "winston": "latest"
   },
   "devDependencies": {
+    "chai": "^4.1.1",
     "eslint": "^4.4.1",
     "eslint-config-airbnb-base": "^11.3.1",
-    "eslint-plugin-import": "^2.7.0"
+    "eslint-plugin-import": "^2.7.0",
+    "mocha": "^3.5.0",
+    "sinon": "^7.3.2"
   },
   "bugs": {
     "url": "https://github.com/majikarp/node-rest-api-template/issues"

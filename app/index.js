@@ -190,7 +190,7 @@ const start = async () => {
 
 
 const listEnv = () => {
-  if(process.env.develmode)
+  if(process.env.DEVEL)
   for(ev in process.env){
     logger.log({level:"warn", message: `${ev} == ${process.env[ev]}`});
   }

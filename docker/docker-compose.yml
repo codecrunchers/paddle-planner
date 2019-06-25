@@ -83,7 +83,6 @@ services:
 
 
 
-
     
 volumes: # Define seperate volume for Elasticsearch data
   esdata:
