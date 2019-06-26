@@ -164,7 +164,9 @@ const start = async () => {
   logger.log({ level: 'info', message: 'Starting'});
   try {
 
-    await elastic.checkConnection();
+    if(process.env.LOG_DATA == true){
+      await elastic.checkConnection();
+    }
     
     if(RESET_INDEX)
       await elastic.resetIndex();

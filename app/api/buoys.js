@@ -1,9 +1,7 @@
 const logger = require("../logger/logger").logger;
 const buoyLogger = require("../logger/logger").buoyLogger;
-const rest = require('rest');
+var request = require('request');
 const csv=require('csvtojson')
-
-
 
 const LOG_DATA = process.env.LOG_DATA || false
 
@@ -18,7 +16,7 @@ const logData  = async (fullBuoyReport) => {
   }
 }
 
-exports.getBuoy = async (request, reply)=> {
+exports.getBuoy = async (_request, reply)=> {
   let response;
   logger.log({level: "info", message: `DEVEL >>>  ${process.env.DEVEL}`});
 
@@ -28,32 +26,37 @@ exports.getBuoy = async (request, reply)=> {
   }
   else{    
     logger.log({level: "info", message: `LIVE MODE`});
-    response =  await fetch(request);
+    response =  await fetch(_request);
+    logger.log({level: "info", message: `Response ${response}`});
+
   }
   logData(response);
   return response;
-
-
 }
 
-const fetch  = async (request) => {
+const fetch  = async (_request) => {
   try   {
     logger.log({level: "info", message: `Fetching Buoy Data ${request.params}`});
-    const buoyId  = request.params.buoyid;
+    const buoyId  = _request.params.buoyid;
     const updatedUrl = `https://www.met.ie/forecasts/marine-inland-lakes/buoys/download/${buoyId}`;
     logger.log({level: "info", message: `Fetching Buoy Data from ${updatedUrl}`});
 
-    const buoyResponse  = await rest(updatedUrl).then(
-      function(response) {
-        logger.log({level:'info','message': response.status});
-        return response.entity;
+    return  await request.get(updatedUrl, 
+      function(err,response,body) {
+        data = ""
+        if(err || response.statusCode != 200){
+          logger.log({level:'error' ,'message': "Body ", response});
+          throw err
+        }else{
+          logger.log({level:'info','message': "Weather Call Good"});
+
+          logger.log({level:'debug','message': "Response Body: " + body});
+          data = body;
+        }
+        return data
       }
     );
-    logger.log({level:'debug' ,'message': buoyResponse});
-    return buoyResponse; 
   }catch(err){
     throw err;
   }
 }
-
-
