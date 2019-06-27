@@ -27,7 +27,7 @@ exports.getBuoy = async (_request, reply)=> {
 
   if(process.env.DEVEL){
     logger.log({level: "info", message: `DEBUG MODE`});
-    //reply.header('Content-Type', 'application/json').code(418)
+    reply.header('Content-Type', 'application/json').code(418)
     response = `HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A`;
   }
   else{    

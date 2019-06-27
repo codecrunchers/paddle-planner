@@ -47,7 +47,6 @@ describe('buoyData', function () {
     process.env=[]
     buoyReply = await buoy.getBuoy({ params: { buoyid:"M5"}},{});
     expect(buoyReply).to.be.equal('[{"HEAD":"1","HEAD1":"2","HEADER2":"B"},{"HEAD":"2","HEAD1":"3","HEADER2":"A"}]');
-
   });
 
 });
