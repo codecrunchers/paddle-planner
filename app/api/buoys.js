@@ -5,32 +5,37 @@ const csv=require('csvtojson')
 
 const LOG_DATA = process.env.LOG_DATA || false
 
-const logData  = async (fullBuoyReport) => {
-  if(LOG_DATA)  {
-    for(hourlyReport in fullBuoyReport){
-      csv({output:"json"})
-        .fromString(hourlyReport).then( (json) => {
-          buoyLogger.log({level:"info", message: json});
-        })
-    }
-  }
+
+const csvToJSON = (fullCSVBouyReport) => {
+  logger.log({level:"debug", message: `Conerting ${fullCSVBouyReport} to JSON`});
+
+  return csv({output:"json"})
+    .fromString(fullCSVBouyReport).then( (json) => {
+      return json;
+    });
 }
+
+
+const logData  = async (fullBuoyReport) => {
+  csvToJSON(fullBuoyReport).then( (m)=> buoyLogger.info(m));
+}
+
 
 exports.getBuoy = async (_request, reply)=> {
   let response;
   logger.log({level: "info", message: `DEVEL >>>  ${process.env.DEVEL}`});
 
   if(process.env.DEVEL){
-    logger.log({level: "info", message: `DEBUG MODE}`});
+    logger.log({level: "info", message: `DEBUG MODE`});
+    //reply.header('Content-Type', 'application/json').code(418)
     response = `HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A`;
   }
   else{    
     logger.log({level: "info", message: `LIVE MODE`});
-    response =  await fetch(_request);
-    logger.log({level: "info", message: `Response ${response}`});
-
-  }
-  logData(response);
+    //reply.header('Content-Type', 'application/json').code(200)
+    response = fetch(_request);
+  }  
+  //logData(response);
   return response;
 }
 

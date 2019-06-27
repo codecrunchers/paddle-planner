@@ -89,9 +89,6 @@ fastify.route({
   handler: buoys.getBuoy,
 })
 
-
-
-
 // Geo
 fastify.route({
   method: 'GET',
@@ -115,9 +112,6 @@ fastify.route({
   },
   handler: geo.getGeo,  
 })
-
-
-
 
 // 
 fastify.route({

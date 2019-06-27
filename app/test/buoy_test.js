@@ -5,6 +5,17 @@ var expect = chai.expect;
 var buoy = require('../api/buoys.js');
 var request = require('request');
 
+before((done) => {
+  sinon.stub(request, 'get').yields(null, {statusCode: 200}, '[{"HEAD":"1","HEAD1":"2","HEADER2":"B"},{"HEAD":"2","HEAD1":"3","HEADER2":"A"}]')
+  done()
+});
+after((done) => {
+  request.get.restore();
+  done()
+});
+
+
+
 describe('buoyData', function () {
   const responseObject = {
     statusCode: 200,
@@ -26,25 +37,16 @@ describe('buoyData', function () {
     };
 
   it('emulate call if in debug mode', async function () {
-    process.env.DEVEL=Boolean(true)
+    process.env.DEVEL=true
     var buoyReply = await buoy.getBuoy({},{});
     expect(buoyReply).to.be.equal("HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A")
   });  
-
-    before((done) => {
-      sinon.stub(request, 'get').yields(null, {statusCode: 200}, 'foo')
-      done()
-    });
-    after((done) => {
-      request.get.restore();
-      done()
-    });
 
 
   it('calls www.met.ie/forecasts/marine-inland-lakes/buoys/download/??', async function () {    
     process.env=[]
     buoyReply = await buoy.getBuoy({ params: { buoyid:"M5"}},{});
-    expect(buoyReply).to.be.equal("foo");
+    expect(buoyReply).to.be.equal('[{"HEAD":"1","HEAD1":"2","HEADER2":"B"},{"HEAD":"2","HEAD1":"3","HEADER2":"A"}]');
 
   });
 
