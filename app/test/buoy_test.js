@@ -4,9 +4,18 @@ var sinon = require('sinon');
 var expect = chai.expect;
 var buoy = require('../api/buoys.js');
 var request = require('request');
+const fastify = require('fastify')({ logger: true })
+const fastifyReply = require('fastify').reply
+
+console.log(fastifyReply.code())
+
+
 
 before((done) => {
   sinon.stub(request, 'get').yields(null, {statusCode: 200}, '[{"HEAD":"1","HEAD1":"2","HEADER2":"B"},{"HEAD":"2","HEAD1":"3","HEADER2":"A"}]')
+  var mock = sinon.mock(fastify);
+  mock.expects("reply")
+
   done()
 });
 after((done) => {
@@ -38,14 +47,17 @@ describe('buoyData', function () {
 
   it('emulate call if in debug mode', async function () {
     process.env.DEVEL=true
-    var buoyReply = await buoy.getBuoy({},{});
-    expect(buoyReply).to.be.equal("HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A")
+    var amock = sinon.mock(fastifyReply);
+    amock.expects("code").once();
+    var buoyReply = await buoy.getBuoy({ params: { buoyid:"M5"}}, fastify.Reply);
+    expect(buoyReply).to.be.equal('[{"HEAD":"1","HEAD1":"2","HEADER2":"B"},{"HEAD":"2","HEAD1":"3","HEADER2":"A"}]');
   });  
 
 
   it('calls www.met.ie/forecasts/marine-inland-lakes/buoys/download/??', async function () {    
     process.env=[]
-    buoyReply = await buoy.getBuoy({ params: { buoyid:"M5"}},{});
+
+    buoyReply = await buoy.getBuoy({ params: { buoyid:"M5"}}, mock);
     expect(buoyReply).to.be.equal('[{"HEAD":"1","HEAD1":"2","HEADER2":"B"},{"HEAD":"2","HEAD1":"3","HEADER2":"A"}]');
   });
 
