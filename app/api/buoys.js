@@ -1,25 +1,6 @@
 const logger = require("../logger/logger").logger;
-const buoyLogger = require("../logger/logger").buoyLogger;
 var request = require('request');
-const csv=require('csvtojson')
-
 const LOG_DATA = process.env.LOG_DATA || false
-
-
-const csvToJSON = (fullCSVBouyReport) => {
-  logger.log({level:"debug", message: `Conerting ${fullCSVBouyReport} to JSON`});
-
-  return csv({output:"json"})
-    .fromString(fullCSVBouyReport).then( (json) => {
-      return json;
-    });
-}
-
-
-const logData  = async (fullBuoyReport) => {
-  csvToJSON(fullBuoyReport).then( (m)=> buoyLogger.info(m));
-}
-
 
 exports.getBuoy = async (_request, reply)=> {
   let response;
@@ -30,13 +11,14 @@ exports.getBuoy = async (_request, reply)=> {
   if(process.env.DEVEL){
     logger.log({level: "info", message: `DEBUG MODE`});
     response = `HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A`;
-    reply().code(418).send(response)
+    console.log(reply);
+    //reply.code(418).send(response)
   }
   else{    
     logger.log({level: "info", message: `LIVE MODE`});
     //reply.header('Content-Type', 'application/json').code(200)
     response = fetch(_request);
-    reply().code(200).send(response)
+    reply.code(200).send(response)
 
   }  
   //logData(response);

@@ -5,6 +5,13 @@ tf/.terraform/modules/*
 # package directories
 node_modules
 jspm_packages
+*.swp
+*.swo
+*swp
+*swo
+**/*.sw[o|p]
+**/*.swo
+
 
 # Serverless directories
 .serverless
