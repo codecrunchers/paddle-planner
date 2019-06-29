@@ -1,14 +1,15 @@
 const tides = require("./api/tides");
 const geo = require("./api/geo");
 const weather = require("./api/weather");
-const buoys = require("./api/buoys");
 const buoySvc = require("./services/buoydata");
 const logger = require("./logger/logger").logger;
 const elastic =  require("./services/elastic");
+const { elasticDecorator  }= require("./api/decorators")
 
 const RESET_INDEX = process.env.RESET_INDEX || false;
 const SERVER_PORT = process.env.PORT || 3000;
 const AUTO_BUOYDATA_ENABLED = process.env.AUTO_BUOYDATA_ENABLED || false;
+const LOG_DATA = process.env.LOG_DATA || false
 
 // Require the framework and instantiate it
 const fastify = require('fastify')({ logger: true })
@@ -86,7 +87,7 @@ fastify.route({
   preHandler: async (request, reply) => {
     logger.log({level:"info", message: request.params });
   },
-  handler: buoys.getBuoy,
+  handler: elasticDecorator//buoys.getBuoy,
 })
 
 // Geo

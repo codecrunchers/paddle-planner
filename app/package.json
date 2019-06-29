@@ -6,7 +6,9 @@
   "license": "ISC",
   "main": "index.js",
   "directories": {
-    "test": "test"
+    "test": "test",
+    "api": "api",
+    "utils": "utils"
   },
   "scripts": {
     "test": "jest",
