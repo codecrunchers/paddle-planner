@@ -13,6 +13,6 @@ exports.csvToJSON = (fullCSVBouyReport) => {
 
 
 exports.logBuoyData  = async (data) => {
-  csvToJSON(data).then( (m)=> buoyLogger.info(m));
+  csvToJSON(data).then( (m) => buoyLogger.info(m));
 }
 
