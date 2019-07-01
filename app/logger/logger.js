@@ -18,7 +18,7 @@ const logger = winston.createLogger({
   transports: [
     new winston.transports.File({ filename: `${logDir}/paddle-planner-error.log`, level: 'error' }),
     new winston.transports.File({ filename: `${logDir}paddle-planner-out.log` }),
-    new winston.transports.Console({level:'debug'})
+    new winston.transports.Console({level:process.env.LOG_LEVEL || 'info'})
   ]
 });
 

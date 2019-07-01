@@ -176,8 +176,6 @@ const start = async () => {
         fastify.log.info(`server listening on ${address}`);
       }
     });
-
-    //test
   } catch (err) {
     fastify.log.error(err);
     logger.log( {level: "error", message: `Connection Failed, Retrying...${err}`} );
@@ -186,13 +184,5 @@ const start = async () => {
 }
 
 
-const listEnv = () => {
-  if(process.env.DEVEL)
-  for(ev in process.env){
-    logger.log({level:"warn", message: `${ev} == ${process.env[ev]}`});
-  }
-}
-
-listEnv();
 start()
 

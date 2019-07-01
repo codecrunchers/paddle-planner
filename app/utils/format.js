@@ -3,7 +3,7 @@ const buoyLogger = require("../logger/logger").buoyLogger;
 const csv=require('csvtojson')
 
 exports.csvToJSON = (fullCSVBouyReport) => {
-  logger.log({level:"debug", message: `Conerting ${fullCSVBouyReport} to JSON`});
+  logger.log({level:"debug", message: `Converting ${fullCSVBouyReport} to JSON`});
 
   return csv({output:"json"})
     .fromString(fullCSVBouyReport).then( (json) => {
@@ -11,8 +11,7 @@ exports.csvToJSON = (fullCSVBouyReport) => {
     });
 }
 
-
 exports.logBuoyData  = async (data) => {
-  csvToJSON(data).then( (m) => buoyLogger.info(m));
+  buoyLogger.info(data);
 }
 

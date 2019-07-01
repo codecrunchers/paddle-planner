@@ -1,0 +1,38 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: true
+
+filebeat.modules:    
+  - module: elasticsearch
+    server:
+     enabled: true
+
+setup.kibana:
+  host: "kibana:5601"    
+
+
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:   
+    - ${LOG_DIR}/${BUOY_LOG_FILE}
+  multiline.pattern: '^{'
+  multiline.negate: true
+  multiline.match: after
+  multiline.max_lines: 5000
+  multiline.timeout: 10
+
+processors:
+- decode_json_fields:
+    fields: ['message']
+    target: ""
+    process_array: true
+    max_depth: 8
+    overwrite_keys: true
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
+

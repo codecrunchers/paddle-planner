@@ -19,12 +19,13 @@
     "csvtojson": "latest",
     "elasticsearch": "latest",
     "fastify": "^2.2.0",
+    "http": "0.0.0",
     "moment": "^2.18.0",
     "node-cron": "latest",
+    "request": "^2.4.20",
     "require": "^2.4.20",
     "rest": "latest",
-    "winston": "latest",
-    "request": "^2.4.20"
+    "winston": "latest"
   },
   "devDependencies": {
     "chai": "^4.1.1",
