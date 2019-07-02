@@ -13,9 +13,8 @@ test('csv is converted to json', () => {
 })
 
 test('it logs csv as json when asked', () => {
-  return logBuoyData(AS_JSON).then( () => {
-    expect(buoyLogger.info).toBeCalled()
-  });
+    logBuoyData(AS_JSON);
+    expect(buoyLogger.info).toBeCalled()  
 })
 
 

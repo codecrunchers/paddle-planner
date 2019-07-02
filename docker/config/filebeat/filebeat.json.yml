@@ -11,26 +11,51 @@ filebeat.modules:
 setup.kibana:
   host: "kibana:5601"    
 
+setup.template:
+  name: "paddle-planner"
+  pattern: "paddle-planner-*"
+  enabled: false
+  overwrite: true
 
 filebeat.inputs:
 - type: log
   enabled: true
+  format: json
+  json.keys_under_root: true
+  json.add_error_key: true
+  fields:
+     index:  buoy_report
   paths:   
     - ${LOG_DIR}/${BUOY_LOG_FILE}
-  multiline.pattern: '^{'
-  multiline.negate: true
-  multiline.match: after
-  multiline.max_lines: 5000
-  multiline.timeout: 10
+      #  multiline.pattern: '^{'
+      #  multiline.negate: true
+      #  multiline.match: after
+      #  multiline.max_lines: 5000
+      #  multiline.timeout: 10
+  json.keys_under_root: true
+  json.add_error_key: true
 
 processors:
+- rename:
+    fields:
+      - from: "message"
+        to: "buoy_report"
 - decode_json_fields:
-    fields: ['message']
-    target: ""
+    fields: ['buoy_report']
+    target: "buoy_data"
     process_array: true
     max_depth: 8
     overwrite_keys: true
-
+- add_tags:
+    tags: [buoy]  
+- add_fields:    
+    target: paddle-planner
+    fields:
+      name: version
+      id: '0.1'  
+- add_process_metadata:
+    match_pids: [system.process.ppid]
+    target: system.process.parent     
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
   username: '${ELASTICSEARCH_USERNAME:}'

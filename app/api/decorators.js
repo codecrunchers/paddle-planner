@@ -3,20 +3,18 @@ const buoys = require("./buoys");
 const {csvToJSON, logBuoyData} = require('../utils/format')
 
 exports.elasticDecorator = async (request, reply) => {
-  var res = await new Promise( resolve => {
+   var _json = await new Promise( resolve => {
     buoys.getBuoy(request, (e,r) => resolve(r.body) )
+  }).then ( t => {
+    return csvToJSON(t).then ( json => {
+      logBuoyData(json)
+      return json
+    })
   })
 
-  var json = await new Promise( resolve => {
-     csvToJSON(res).then( j=> {
-       console.log(j) 
-       resolve(j)
-     })
-  })
-
-  return JSON.stringify(json)
-    
+  return JSON.stringify(_json);
 }
+
 
 
 

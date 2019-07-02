@@ -10,12 +10,12 @@ const LOG_DATA = process.env.LOG_DATA || false
  */
 exports.getBuoy = (_request, cb) => {
   try {
-    logger.log({level: "info", message: "LIVE MODE"});
-//    request.get(`https://cloud.snarfel.com:9633/${_request.params.buoyid}`, cb)
-    request.get(`https://www.met.ie/forecasts/marine-inland-lakes/buoys/download/${_request.params.buoyid}`, cb)
-
+    uri_prefix = "https://www.met.ie/forecasts/marine-inland-lakes/buoys/download/"
+    //"https://cloud.snarfel.com:9633/"//
+    logger.log({level: "info", message: "LIVE MODE", uri_prefix});
+    request.get(`${uri_prefix}${_request.params.buoyid}`, cb)
   } catch (err) {
-    logger.log({level: "error", message: "!!" , err});
+    logger.log({level: "error", message: "getBuoy Error " , err});
   }
 }
 

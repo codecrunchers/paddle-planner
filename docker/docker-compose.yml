@@ -1,4 +1,4 @@
-version: '3'
+version: "3.7"
 
 services:
   paddle-planner-api: # Node.js App
@@ -30,17 +30,17 @@ services:
     container_name: elasticsearch
     image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
     volumes: # Persist ES data in seperate "esdata" volume
-      - esdata:/usr/share/elasticsearch/data
+     - esdata:/usr/share/elasticsearch/data
     environment:
-      - bootstrap.memory_lock=true
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
-      - discovery.type=single-node
+     - bootstrap.memory_lock=true
+     - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+     - discovery.type=single-node
     ports: # Expose Elasticsearch ports
-      - "9300:9300"
-      - "9200:9200"
+     - "9300:9300"
+     - "9200:9200"
     expose:
-      - 9300
-      - 9200
+     - 9300
+     - 9200
 
 
   kibana:
@@ -69,10 +69,10 @@ services:
     container_name: filebeat
     image:  docker.elastic.co/beats/filebeat:7.1.1
     volumes:
-      - "${PWD}/config/filebeat/filebeat.json.yml:/usr/share/filebeat/filebeat.yml"
-      - /var/lib/docker/containers:/var/lib/docker/containers:ro
-      - /var/run/docker.sock:/var/run/docker.sock:ro
-      - paddle-planner-app-data:/logs/
+     - "${PWD}/config/filebeat/filebeat.json.yml:/usr/share/filebeat/filebeat.yml"
+     - /var/lib/docker/containers:/var/lib/docker/containers:ro
+     - /var/run/docker.sock:/var/run/docker.sock:ro
+     - paddle-planner-app-data:/logs/
     environment:
      - output.elasticsearch.hosts:elasticsearch:9200"
      - LOG_DIR=${LOG_DIR:-/tmp}

@@ -87,7 +87,7 @@ fastify.route({
   preHandler: async (request, reply) => {
     logger.log({level:"info", message: request.params });
   },
-  handler: elasticDecorator,
+  handler: process.env.DEVEL? elasticDecorator : elasticDecorator
 })
 
 // Geo
@@ -161,10 +161,9 @@ const start = async () => {
 
     if(process.env.LOG_DATA == true){
       await elastic.checkConnection();
-    }
-    
-    if(RESET_INDEX)
-      await elastic.resetIndex();
+      if(RESET_INDEX)
+        await elastic.resetIndex();
+    }    
 
     if(AUTO_BUOYDATA_ENABLED) 
       await buoySvc.start();    
