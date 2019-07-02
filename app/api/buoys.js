@@ -8,21 +8,12 @@ const LOG_DATA = process.env.LOG_DATA || false
  * @return csv blob
  *
  */
-exports.getBuoyOffline =  async (_request, reply, cb)=> { 
-  logger.log({level: "info", message: "DEBUG MODE"});
-  cb(null, "HEAD,HEAD1,HEADER2\r\n1,2,B\r\n2,3,A")
-}
-
-exports.getBuoy = async (_request, cb) => {
+exports.getBuoy = (_request, cb) => {
   try {
     logger.log({level: "info", message: "LIVE MODE"});
-    const buoyId  = _request.params.buoyid;
-    const updatedUrl = `https://www.met.ie/forecasts/marine-inland-lakes/buoys/download/${buoyId}`;
-    logger.log({level: "debug", message: "Fetching URI " , updatedUrl});
-    request.get(updatedUrl, (e,r) => {
-      logger.log({level: "debug", message: "IN request CB", e, r});
-      cb(e,r)
-    });    
+//    request.get(`https://cloud.snarfel.com:9633/${_request.params.buoyid}`, cb)
+    request.get(`https://www.met.ie/forecasts/marine-inland-lakes/buoys/download/${_request.params.buoyid}`, cb)
+
   } catch (err) {
     logger.log({level: "error", message: "!!" , err});
   }

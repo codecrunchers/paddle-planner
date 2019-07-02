@@ -87,7 +87,7 @@ fastify.route({
   preHandler: async (request, reply) => {
     logger.log({level:"info", message: request.params });
   },
-  handler: elasticDecorator//buoys.getBuoy,
+  handler: elasticDecorator,
 })
 
 // Geo

@@ -6,12 +6,10 @@ exports.csvToJSON = (fullCSVBouyReport) => {
   logger.log({level:"debug", message: `Converting ${fullCSVBouyReport} to JSON`});
 
   return csv({output:"json"})
-    .fromString(fullCSVBouyReport).then( (json) => {
-      return json;
-    });
+    .fromString(fullCSVBouyReport)
 }
 
-exports.logBuoyData  = async (data) => {
+exports.logBuoyData  = (data) => {
   buoyLogger.info(data);
 }
 

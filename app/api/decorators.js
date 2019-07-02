@@ -3,21 +3,22 @@ const buoys = require("./buoys");
 const {csvToJSON, logBuoyData} = require('../utils/format')
 
 exports.elasticDecorator = async (request, reply) => {
-  try {
+  var res = await new Promise( resolve => {
+    buoys.getBuoy(request, (e,r) => resolve(r.body) )
+  })
 
-  return buoys.getBuoy(request, (e, r) => { 
-      logger.info("In CB");
-      if(e) {
-        reply.code(500);
-      }else {
-        reply.code(200).type("application/json").send(r.body)
-      }
-    }).then( ()  =>  { return } )
+  var json = await new Promise( resolve => {
+     csvToJSON(res).then( j=> {
+       console.log(j) 
+       resolve(j)
+     })
+  })
 
-    return ;
-  } catch (err) {
-    console.log(err)
-  }
+  return JSON.stringify(json)
+    
 }
+
+
+
 
 
