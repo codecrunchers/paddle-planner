@@ -1,0 +1,41 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: true
+
+filebeat.modules:    
+  - module: elasticsearch
+    server:
+     enabled: true
+
+setup.kibana:
+  host: "kibana:5601"    
+
+
+setup.template.name: "paddle-planner"
+setup.template.pattern: "paddle-planner-*"
+setup.template.enabled: false
+setup.template.overwrite: true
+
+filebeat.inputs:
+
+- type: log
+  json.keys_under_root: true
+  json.add_error_key: true
+  paths:
+    - ${LOG_DIR}/${JSON_LOG_FILE}
+
+- type: log      
+  # Identifies the last two columns as the end of an entry and then prepends the previous lines to it
+  json.keys_under_root: true
+  json.add_error_key: true
+  paths:   
+    - ${LOG_DIR}/${BUOY_LOG_FILE}
+
+processors:
+- add_cloud_metadata: ~
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'

@@ -1,0 +1,38 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: true
+
+filebeat.modules:    
+  - module: elasticsearch
+    server:
+     enabled: true
+
+setup.kibana:
+  host: "kibana:5601"    
+
+setup.template:
+  name: "paddle-planner"
+  pattern: "paddle-planner-*"
+  enabled: false
+  overwrite: true
+ 
+
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:   
+      - ${LOG_DIR}/${BUOY_LOG_FILE}
+    json.keys_under_root: false
+
+processors:
+  - decode_json_fields:
+      fields: ["message"]
+
+
+
+output.elasticsearch:
+  hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
+  username: '${ELASTICSEARCH_USERNAME:}'
+  password: '${ELASTICSEARCH_PASSWORD:}'
+

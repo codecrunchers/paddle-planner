@@ -1,0 +1,32 @@
+filebeat.config:
+  modules:
+    path: ${path.config}/modules.d/*.yml
+    reload.enabled: true
+
+filebeat.modules:    
+  - module: elasticsearch
+    server:
+     enabled: true
+
+setup.kibana:
+  host: "kibana:5601"    
+
+setup.template:
+  name: "paddle-planner"
+  pattern: "paddle-planner-*"
+  enabled: false
+  overwrite: true
+
+filebeat.prospectors:
+- input_type:     
+  paths: ["${LOG_DIR}/${BUOY_LOG_FILE}"]
+  json.keys_under_root: true
+  tags: [
+    "buoy",
+    "real"
+  ]
+
+output.elasticsearch:
+  hosts: ["192.168.99.100:9200"]
+  template.name: filebeat
+  template.path: filebeat.template.json
