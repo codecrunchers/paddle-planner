@@ -7,7 +7,9 @@ exports.elasticDecorator = async (request, reply) => {
     buoys.getBuoy(request, (e,r) => resolve(r.body) )
   }).then ( t => {
     return csvToJSON(t).then ( json => {
-      logBuoyData(json)
+      for(entry in json){
+        logBuoyData(json[entry])
+      }
       return json
     })
   })

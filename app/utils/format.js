@@ -9,7 +9,7 @@ exports.csvToJSON = (fullCSVBouyReport) => {
     .fromString(fullCSVBouyReport)
 }
 
-exports.logBuoyData  = (data) => {
-  buoyLogger.info(data);
+exports.logBuoyData  = (hourlyBuoyReport) => {
+  buoyLogger.info(hourlyBuoyReport);
 }
 
