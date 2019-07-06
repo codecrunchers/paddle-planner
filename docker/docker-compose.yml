@@ -28,7 +28,7 @@ services:
 
   elasticsearch: # Elasticsearch Instance
     container_name: elasticsearch
-    image: docker.elastic.co/elasticsearch/elasticsearch:7.1.1
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.2.0
     volumes: # Persist ES data in seperate "esdata" volume
      - esdata:/usr/share/elasticsearch/data
     environment:
@@ -44,7 +44,7 @@ services:
 
 
   kibana:
-    image: docker.elastic.co/kibana/kibana:7.1.1
+    image: docker.elastic.co/kibana/kibana:7.2.0
     container_name: kibana
     environment:
       SERVER_NAME: localhost
@@ -69,7 +69,7 @@ services:
     container_name: filebeat
     image:  docker.elastic.co/beats/filebeat:7.2.0
     volumes:
-     - "${PWD}/config/filebeat/filebeat.json.yml:/usr/share/filebeat/filebeat.yml:ro"
+     - "${PWD}/config/filebeat/filebeat.simple.yml:/usr/share/filebeat/filebeat.yml:ro"
      - "${PWD}/config/filebeat/fields.yml:/usr/share/filebeat/fields.yml:ro"       
      - /var/lib/docker/containers:/var/lib/docker/containers:ro
      - /var/run/docker.sock:/var/run/docker.sock:ro
@@ -81,6 +81,7 @@ services:
      - JSON_LOG_FILE=${JSON_LOG_FILE:-json-log.log}
     links:
       - elasticsearch
+        #    command: filebeat
 
 
 

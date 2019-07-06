@@ -23,9 +23,6 @@ setup.template:
   enabled: true
   overwrite: true
   fields: "/usr/share/filebeat/fields.yml"
-  append_fields:
-  - name: test.name
-    type: keyword
  
 
 filebeat.inputs:
@@ -33,7 +30,7 @@ filebeat.inputs:
     enabled: true
     paths:   
       - ${LOG_DIR}/${BUOY_LOG_FILE}
-    json.keys_under_root: false
+    json.keys_under_root: true
     json.add_error_key: true
 
 processors:
@@ -41,10 +38,18 @@ processors:
       fields: ["message"]
       target: ""
 
-
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
   username: '${ELASTICSEARCH_USERNAME:}'
   password: '${ELASTICSEARCH_PASSWORD:}'
   index: "paddle-planner-%{[agent.version]}-%{+yyyy.MM.dd}"
+  console:
+    pretty: true
+
+
+
+logging.level: debug
+logging.selectors: "*"
+
+
 

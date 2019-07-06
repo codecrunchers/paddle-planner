@@ -1,0 +1,46 @@
+- name: paddle-planner
+  type: group
+  description: >
+    Contains fields for the paddle-planner Buoy logs. 
+  fields:
+    - name: json.message.height
+      type: double
+    - name: pressure
+      path: json.message.pressure
+      type: double
+    - name: sea_temp
+      path: json.message.seaTemp
+      type: double
+    - name: temp
+      path: json.message.temp
+      type: double
+    - name: wind_dir
+      path: json.message.windDir
+      type: integer
+    - name: wind_speed
+      path: json.message.windSpeed
+      type: integer
+    - name: wind_gust
+      path: json.message.windGust
+      type: integer
+    - name: dew_point
+      path: json.message.dewPoint
+      type: double
+    - name: period
+      path: json.message.period
+      type: double
+    - name: humidity
+      path: json.message.humidity
+      type: integer
+    - name: humidity
+      path: json.message.name
+      type: keyword
+    - name: id
+      path: json.message.ID
+      type: keyword
+
+
+
+
+
+

@@ -1,0 +1,48 @@
+- name: paddle-planner
+  type: group
+  description: >
+    Contains fields for the paddle-planner Buoy logs. 
+  fields:
+    
+      path: json.message.height
+      type: double
+      ignore_malformed: true 
+    - name: json.message.pressure
+      type: double
+      ignore_malformed: true 
+    - name: json.message.seaTemp
+      type: double
+      ignore_malformed: true       
+    - name: json.message.temp
+      type: double
+      ignore_malformed: true 
+    - name: json.message.windDir
+      type: integer
+      ignore_malformed: true 
+    - name: json.message.windGust
+      type: long
+      ignore_malformed: true 
+    - name: json.message.windSpeed
+      type: integer
+      ignore_malformed: true      
+    - name: json.message.dewPoint  
+      type: double
+      ignore_malformed: true 
+    - name: json.message.period
+      type: double
+      ignore_malformed: true 
+    - name: json.message.humidity
+      type: integer
+      ignore_malformed: true 
+    - name: json.message.name
+      type: keyword
+      index: true
+      ignore_malformed: true 
+    - name: json.message.ID
+      type: keyword
+      ignore_malformed: true 
+
+
+
+
+
