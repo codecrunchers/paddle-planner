@@ -1,12 +1,7 @@
-- name: paddle-planner
+- key: paddle-planner
   type: group
   description: >
-    Contains fields for the paddle-planner Buoy logs. 
-  fields:    
-    - name: buoy_report.windGust
-      type: integer
-      ignore_malformed: true 
-      
-
-
-
+    Contains fields for the paddle-planner Buoy logs.
+  fields:
+    - name: buoy_report_date
+      type: date
