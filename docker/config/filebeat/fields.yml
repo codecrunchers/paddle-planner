@@ -3,5 +3,7 @@
   description: >
     Contains fields for the paddle-planner Buoy logs.
   fields:
-    - name: buoy_report_date
+    - name: report_date
       type: date
+
+

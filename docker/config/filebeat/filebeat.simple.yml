@@ -31,47 +31,49 @@ filebeat.inputs:
     paths:   
       - ${LOG_DIR}/${BUOY_LOG_FILE}
     json.keys_under_root: false
-
-processors:
-  - decode_json_fields:
-      fields: ["message"]
-      target: ""
-  - convert:
-      fields:
-        - {from: "json.message.windGust", to: "wind_gust", type: "integer"}
-        - {from: "json.message.period", to: "period", type: "double"}
-        - {from: "json.message.created_at", to: "created_at", type: "string"}
-        - {from: "json.message.dewPoint", to: "dewPoint", type: "double"}
-        - {from: "json.message.height", to: "height", type: "double"}
-        - {from: "json.message.humidity", to: "humidity", type: "integer"}
-        - {from: "json.message.ID", to: "buoy_id" , type: "string"}
-        - {from: "json.message.name", to: "name" , type: "string"}
-        - {from: "json.message.pressure", to: "pressure", type: "double"}
-        - {from: "json.message.reportDate", to: "report_date"}
-        - {from: "json.message.reportTime", to: "report_time"}
-        - {from: "json.message.seaTemp", to: "sea_temp", type: "double"}
-        - {from: "json.message.temp", to: "temp", type: "double"}
-        - {from: "json.message.time", to: "time" , type: "string"}
-        - {from: "json.message.updated_At", to: "updated_at" , type: "string"} 
-        - {from: "json.message.windDir", to: "wind_dir", type: "double"}
-        - {from: "json.message.windSpeed", to: "wind_speed", type: "double"}
-        - {from: "json.message.wmoID", to: "wmo_id" , type: "string"}
-      ignore_missing: false
-      fail_on_error: false
-  - script:
-      lang: javascript
-      id: my_filter
-      source: >
-        function process(event) {
-          var timearray  = event.Get("report_date").split("-", 3);
-          var elasticTime = timearray[2] +"-"+ timearray[1] +"-"+ timearray[0];
-          var reportHour = event.Get("report_time");
-          if(reportHour.charAt(0) == ' ')
-            reportHour="0"+reportHour.trim();
-          event.Put("buoy_report_date", elasticTime + "T" + reportHour + ":00");
-          event.Tag("time-modified");
-        }
-
+    tags: ['buoy']
+    processors:
+    - decode_json_fields:
+        fields: ["message"]
+    - convert:
+        fields:
+           - {from: "json.message.reportDate", to: "report_date", mode: "copy"}
+           - {from: "json.message.reportTime", to: "report_time", mode: "copy"}
+        ignore_missing: false
+        fail_on_error: false
+    - script:
+        lang: javascript
+        id: my_filter_buoy
+        source: >
+          function process(event) {
+            var timearray  = event.Get("report_date").split("-", 3);
+            var elasticTime = timearray[2] +"-"+ timearray[1] +"-"+ timearray[0];
+            var reportHour = event.Get("report_time");
+            if(reportHour.charAt(0) == ' ')
+              reportHour="0"+reportHour.trim();
+            event.Put("report_date", elasticTime + "T" + reportHour + ":00");
+            event.Tag("time-modified");
+          }
+  - type: log
+    enabled: true
+    paths:   
+      - ${LOG_DIR}/${WEATHER_LOG_FILE}
+    json.keys_under_root: false
+    tags: ['weather-forecast']
+    processors:
+    - decode_json_fields:
+        fields: ["message"]
+    - script:
+        lang: javascript
+        id: my_filter_weather
+        source: >
+          function process(e){
+            var _date  = e.Get("json.message.dt_txt").split(" ",2)
+            e.Put("report_date", _date[0]+'T'+_date[1])
+            e.Tag("time-modified");
+          }
+        
+          
 output.elasticsearch:
   hosts: '${ELASTICSEARCH_HOSTS:elasticsearch:9200}'
   index: "paddle-planner-%{[agent.version]}-%{+yyyy.MM.dd}"
