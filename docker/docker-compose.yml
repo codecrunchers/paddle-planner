@@ -11,12 +11,12 @@ services:
      - LOG_DIR=${LOG_DIR:-/tmp}
      - BUOY_LOG_FILE=${BUOY_LOG_FILE:-log.log}
      - WEATHER_LOG_FILE=${WEATHER_LOG_FILE:-weather-log.log}
+     - TIDE_LOG_FILE=${TIDE_LOG_FILE:-tides-log.log}       
      - JSON_LOG_FILE=${JSON_LOG_FILE:-json-log.log}
      - NODE_ENV=local
      - ES_HOST=elasticsearch
      - ES_PORT=9200
      - PORT=3000
-     - LOG_DATA=${LOG_DATA:-false}
      - AUTO_BUOY_DATA_ENABLED:${AUTO_BUOY_DATA_ENABLED:-false}
     volumes: # Persist ES data in seperate "esdata" volume
      - paddle-planner-app-data:/logs/
@@ -81,6 +81,7 @@ services:
      - BUOY_LOG_FILE=${BUOY_LOG_FILE:-log.log}
      - JSON_LOG_FILE=${JSON_LOG_FILE:-json-log.log}
      - WEATHER_LOG_FILE=${WEATHER_LOG_FILE:-weather-log.log}
+     - TIDE_LOG_FILE=${TIDE_LOG_FILE:-tides-log.log}
     links:
       - elasticsearch
         #    command: filebeat

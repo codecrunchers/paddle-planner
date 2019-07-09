@@ -1,6 +1,7 @@
-const logger = require("../logger/logger").logger;
-const buoyLogger = require("../logger/logger").buoyLogger;
-const weatherLogger = require("../logger/logger").weatherLogger;
+const { logger , weatherLogger, buoyLogger, tideLogger }= require("../logger/logger")
+//const buoyLogger = require("../logger/logger").buoyLogger;
+//const weatherLogger = require("../logger/logger").weatherLogger;
+//const tideLogger = require("../logger/logger").tideLogger;
 
 const csv=require('csvtojson')
 
@@ -12,6 +13,9 @@ exports.csvToJSON = (fullCSVBouyReport) => {
     logger.log({level:"error", mesage:"Cannot convert csv to json", e});
     throw e  
   }  
+}
+exports.logTideData  = (hourlyTideReport) => {
+  tideLogger.info(hourlyTideReport);
 }
 
 exports.logBuoyData  = (hourlyBuoyReport) => {

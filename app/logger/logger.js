@@ -9,6 +9,8 @@ const logDir = process.env.LOG_DIR || '/tmp';
 
 const buoyLogFile = process.env.BUOY_LOG_FILE || 'paddle-planner-buoys.log';
 const weatherLogFile = process.env.WEATHER_LOG_FILE || 'paddle-planner-weather.log';
+const tideLogFile = process.env.TIDE_LOG_FILE || 'paddle-planner-tides.log';
+
 
 
 
@@ -44,6 +46,17 @@ const weatherLogger = winston.createLogger({
   ]
 });
 
-module.exports = { logger, buoyLogger, weatherLogger} 
+
+const tideLogFilename = path.join(logDir, tideLogFile);
+logger.log({level: "info", message: "Filename for buoy logs", tideLogFilename});
+const tideLogger = winston.createLogger({
+  transports: [
+    new winston.transports.File({ filename: tideLogFilename, level: 'info'}),
+    new winston.transports.Console()
+  ]
+});
+
+
+module.exports = { logger, buoyLogger, weatherLogger, tideLogger} 
 
 

@@ -1,9 +1,8 @@
-const tides = require("./api/tides");
 const geo = require("./api/geo");
 const buoySvc = require("./services/buoydata");
 const logger = require("./logger/logger").logger;
 const elastic =  require("./services/elastic");
-const { elasticDecorator , elasticDecoratorWeather }= require("./api/decorators")
+const { elasticDecorator , elasticDecoratorWeather, elasticDecoratorTides }= require("./api/decorators")
 
 const RESET_INDEX = process.env.RESET_INDEX || false;
 const SERVER_PORT = process.env.PORT || 3000;
@@ -60,7 +59,7 @@ fastify.route({
   preHandler: async (request, reply) => {
     logger.log({level:"info", message: request.params });
   },
-  handler: tides.getTides,  
+  handler: elasticDecoratorTides,  
 })
 
 
