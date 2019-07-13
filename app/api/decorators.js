@@ -52,7 +52,7 @@ exports.elasticDecoratorTides = async (request, reply) => {
     for(entry in json.extremes){
       var tideStat = json.extremes[entry] 
       tideStat.data = {
-        provider: json.copyright,
+        provider: "www.worldtide.info",
         requestLat: json.requestLat,
         requestLon: json.requestLon,
         responseLat: json.responseLat,

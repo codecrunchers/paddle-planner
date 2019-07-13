@@ -96,10 +96,13 @@ filebeat.inputs:
       - ${LOG_DIR}/${TIDE_LOG_FILE}
     tags: ['tide-forecast']
     processors:
+    - decode_json_fields:
         fields: ["message"]
     - convert:
+        fields:
            - {from: "json.message.date", to: "report_date", mode: "rename"}
            - {from: "json.message.height", to: "height", mode: "rename"}
+           - {from: "json.message.type", to: "tide_type", mode: "rename", type: "string"}
            - {from: "json.message.data.requestLat", to: "response_lat", mode: "rename"}
            - {from: "json.message.data.requestLon", to: "response_lon", mode: "rename"}
     - script:
