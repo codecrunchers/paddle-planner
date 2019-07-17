@@ -101,13 +101,6 @@ filebeat.inputs:
            - {from: "json.message.date", to: "report_date", mode: "rename"}
            - {from: "json.message.height", to: "height", mode: "rename"}
            - {from: "json.message.data.requestLat", to: "response_lat", mode: "rename"}
-           - {from: "json.message.data.requestLon", to: "response_lon", mode: "rename"}
-    - script:
-        lang: javascript
-        id: add-location-tides
-        source: >
-          function process(e){
-            e.Put("location", e.Get('response_lat') + "," + e.Get('response_lon') )
             e.Tag("time-modified");
           }
           
