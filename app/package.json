@@ -20,7 +20,7 @@
     "elasticsearch": "latest",
     "fastify": "^2.2.0",
     "http": "0.0.0",
-    "moment": "^2.18.0",
+    "moment": "^2.29.2",
     "node-cron": "latest",
     "request": "^2.4.20",
     "require": "^2.4.20",
